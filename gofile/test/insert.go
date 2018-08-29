@@ -1,10 +1,22 @@
-// package main
+ package main
 
-// import (
-//             "fmt"
-//             "test"
-// )
+import (
+            "fmt"
+)
+func main(){
+	fmt.Println(124)
+	slicetest()
+}
+func slicetest(){
+	var sli1 = []byte {'1','2'}
+	sli1 = append(sli1,'1','2','3')
 
+	fmt.Println(sli1)
+	sliss:= []int{1,2,3}
+	sliss = append(sliss,2,3)
+	fmt.Println(sliss)
+
+}
 // func main() {
 //         a := insertSort(1, 2)
 //         fmt.Println(a)

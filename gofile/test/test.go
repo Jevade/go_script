@@ -1,6 +1,8 @@
 package main
 
+//https://github.com/Jevade/the-way-to-go_ZH_CN/blob/master/eBook/07.3.m
 import (
+	"bytes"
 	"fmt"
 	"math"
 	"strings"
@@ -118,6 +120,163 @@ func main() {
 	fmt.Println("the min is ",minSlice(list4[:]))
 	fmt.Println("the max is ",maxSlice(list4[:]))
 	fmt.Println(SumAndAverage(2,2.4))
+	diffNewMake()
+	fmt.Println(numfib(35))
+	z:=[]byte{'a','b','c','d','e'}
+	fmt.Println(len(z),cap(z))
+	s2:=z[2:]
+	s2[1]='t'
+	qz:=[]byte{'a','b','c','d','e'}
+	fmt.Println(z)
+	fmt.Println(len(z),cap(z))
+	z = apps(z,qz)
+	fmt.Println(z)
+	fmt.Println(len(z),cap(z))
+	ka,ab:=z[:5],z[5:]
+	fmt.Println(ka,ab)
+	appslice()
+	testSliceCopyAppend()
+	fmt.Println(appendbyte(qz,'A','b','c'))
+	fmt.Println(len(qz),cap(qz),len(resize(qz,2)),cap(qz))
+	fmt.Println(filterOdd([]int{1,2,3,4,5,6},IsOdd))
+	fmt.Println(InsertStringSlice(qz,'l',-9))
+	fmt.Println(RemoveStringSlice(qz,0,5))
+	s2b := func(s string)([]byte){
+		return []byte(s)
+	}
+	fmt.Println(s2b("it is "))
+
+}
+
+func RemoveStringSlice(slice []byte,start,end int)[]byte{
+	if start < 0{
+		start = 0
+	}
+	if end > len(slice)-1{
+		end = len(slice)-1
+	}
+
+	newslice := slice[end+1:len(slice)]
+	slice = slice[:start+len(newslice)]
+	copy(slice[start:],newslice)
+	return slice
+}
+func InsertStringSlice(slice []byte, c byte,pos int)([]byte){
+	fmt.Println("origin slice is",slice)
+	if pos>len(slice)-1{
+		pos = len(slice)
+	}
+	if pos<0{
+		pos = 0
+	}
+	newslice := make([]byte,len(slice)+1)
+	if pos!=0{
+		copy(newslice[:pos],slice[:pos])
+	}
+	newslice[pos] = c
+	
+	if pos<len(slice){
+		copy(newslice[pos+1:],slice[pos:])
+	}
+	return newslice
+}
+func filterOdd(slice []int, fun func(int)bool )([]int){
+	newslice := make([]int,0,10)
+	for ix := range slice{
+		if fun(slice[ix]){
+			continue
+		}else{
+			newslice = newslice[0:len(newslice)+1]
+			newslice[len(newslice)-1] = slice[ix]
+			// newslice = append(newslice,slice[ix])
+		}
+	}
+	return newslice
+}
+
+func IsOdd(num int)bool{
+	if num%2==1{
+		return true
+	}
+	return false
+}
+func resize(slice []byte,factor int)[]byte{
+	m := len(slice) * factor
+	if m>cap(slice){
+		newslice := make([]byte ,2 * m + 2)
+		copy(newslice,slice)
+		slice = newslice
+	}
+	slice = slice[0:m]
+	return slice
+}
+func testSliceCopyAppend(){
+	sl3 := []int{1, 2, 3}
+	sl3 = append(sl3, 4, 5, 6)
+	fmt.Println(sl3)
+	fmt.Println(1234)
+	sl3 = append(sl3, []int{4, 5, 6}...)
+	fmt.Println(sl3)
+	fmt.Println(1234)
+	
+}
+func appendbyte(slice []byte, data ...byte)[]byte{
+	m:=len(slice)
+	n:=len(data) + m
+	if n > cap(slice){
+		newslice:=make([]byte,(n+1) * 2)
+		copy(newslice,slice)
+		slice = newslice
+	}
+	slice = slice[0:n]
+	copy(slice[m:n],data)
+	return slice
+}
+
+func appslice(){
+	slice := make([]int,0,10)
+	for ix:=0;ix<cap(slice);ix++{
+		slice = slice[0:ix+1]
+		slice[ix]=ix
+		fmt.Println("the length of slice is ",len(slice))
+	}
+	fmt.Println(slice)
+}
+func apps(slice,data []byte)[]byte{
+	if cap(slice)>len(slice)+len(data){
+		for ix:=0;ix<len(data);ix++{
+			slice[len(slice)]=data[ix]
+			}
+		}else{
+			var buffer bytes.Buffer
+			for ix:=0;ix<len(slice);ix++{
+			buffer.WriteByte(slice[ix])
+		}
+		for ix:=0;ix<len(data);ix++{
+			buffer.WriteByte(data[ix])
+		}
+		slice = buffer.Bytes()
+	}
+	return slice
+}
+func numfib(num int)([]int){
+	re :=make([]int,num)
+	for ix:=0;ix<num;ix++{
+		re[ix]=fibonacci_cache(ix)
+	}
+	return re
+}
+func diffNewMake(){
+	var makeslice []int = make([]int,5,10)
+	for ix :=range makeslice{
+		makeslice[ix] = ix * 5
+	}
+	for ix:=0;ix<len(makeslice);ix++{
+		fmt.Println("the" ,ix,"num is",makeslice[ix])
+	}
+	fmt.Println("len: ",len(makeslice),"cap:", cap(makeslice))
+	// var newslice []int = new([]int,5)
+	fmt.Println(makeslice)
 }
 func minSlice(slice []int)(min int){
 	min = slice[0]
@@ -193,7 +352,7 @@ func f()(ret int){
 		ret++
 		fmt.Println("ret",ret)
 	}()
-	return 1
+	return 
 }
 //close len cap new make copy append panic recover print println complex real imag 
 
