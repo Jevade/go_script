@@ -2,8 +2,11 @@ package main
 
 //https://github.com/Jevade/the-way-to-go_ZH_CN/blob/master/eBook/07.3.m
 import (
+	"regexp"
 	"bytes"
+	"io/ioutil"
 	"fmt"
+	"sort"
 	"math"
 	"strings"
 	"errors"
@@ -11,6 +14,7 @@ import (
 	"log"
 	"time"
 )
+var re = regexp.MustCompile("[0-9]+")
 var fibs [50]int
 func main() {
 	where := func(){
@@ -144,10 +148,105 @@ func main() {
 	s2b := func(s string)([]byte){
 		return []byte(s)
 	}
-	fmt.Println(s2b("it is "))
-
+	nnn,_:=fmt.Println(s2b("it is "))
+	fmt.Println(nnn)
+	fmt.Println(chstring("hello",2,'g'))
+	fmt.Println(StrComp(qz,appendbyte(qz,'a')))
+	numSlice := []int{2,5,1,8,5,3,2}
+	fmt.Println(qz)
+	sort.Ints(numSlice)
+	fmt.Println(sort.IntsAreSorted(numSlice))
+	fmt.Println(sort.SearchInts(numSlice,5),numSlice)
+	fmt.Println(sl713("it is a very useful question"))
+	fmt.Println(copyRepu("itt iss a very useful question"))
+	fmt.Println(pop([]int{2,5,4,1,9,5,3,7,2}))
+	fun1 := func(a int)int{return a * 10}
+	fmt.Println(mapfunc(fun1,[]int{1,2,3,4,5}))
 }
 
+// func map1 map[key]
+func mapfunc(fun func(int)int,slice []int )[]int{
+	for ix := range slice{
+		slice[ix] = fun(slice[ix])
+	}
+	return slice
+}
+func pop(sli []int)[]int{
+	var flag int
+	for ix:=0;ix<len(sli);ix++{
+		for iy:=0;iy<len(sli)-ix-1;iy++{
+			if sli[iy]>sli[iy+1]{
+				flag = sli[iy+1]
+				sli[iy+1]=sli[iy]
+				sli[iy] = flag
+			}
+		}
+	}
+	return sli
+}
+func copyRepu(str string)[]byte{
+	result := make([]byte,0)
+	for ix:=1;ix<len(str);ix++{
+		if str[ix]==str[ix-1]{
+			result = append(result,str[ix])
+		}
+	}
+	return result
+}
+func sl713(str string)string{//reverse a string
+	if len(str)<2{
+		return str
+	}
+	return sl713(str[len(str)/2:])+sl713(str[:len(str)/2])
+}
+func findOneNum(filename string)[]byte{
+	b,err := ioutil.ReadFile(filename)
+	if err != nil{
+		fmt.Println("open error")
+		return nil
+	}
+	b = re.Find(b)
+	c := make([]byte,len(b))
+	copy(c,b)
+	return c
+	//if a slice is not referenced,it will be recollected,
+	//Just return a slice of a big array will take up large
+	// memory, so we can make another slice and cope values to 
+	//this new slice and return it to save memory.
+}
+func splitSlice(sli string,pos int)(string,string,string){
+	return sli[:pos],"|",sli[pos+1:]
+}
+func findNum(filename string)[]byte{
+	f,err := ioutil.ReadFile(filename)
+	if err != nil{
+		fmt.Println("open error")
+		return nil
+	}
+	b := re.FindAll(f,len(f))
+	c:=make([]byte,0)
+	for _,bytes := range b{
+		c = append(c , bytes...)
+	}
+	return c
+}
+func StrComp(a,b []byte)bool{
+	for i:=0; i < len(a) && i < len(b); i++{
+		switch{
+		case a[i] > b[i]:
+			return true
+			fallthrough
+		case a[i] < b[i]:
+			return false
+		}
+	}
+	return bool(len(a)>len(b))
+}
+func chstring(str string,pos int,c byte)(string){
+	s:=[]byte(str)
+	s[pos] = c
+	return string(s)
+}
 func RemoveStringSlice(slice []byte,start,end int)[]byte{
 	if start < 0{
 		start = 0
