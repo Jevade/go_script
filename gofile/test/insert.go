@@ -3,11 +3,11 @@
 import (
             "fmt"
 )
-func main(){
-	fmt.Println(124)
-	slicetest()
-}
-func slicetest(){
+// func main(){
+// 	fmt.Println(124)
+// 	slicetest()
+// }
+func Slicetest(){
 	var sli1 = []byte {'1','2'}
 	sli1 = append(sli1,'1','2','3')
 
