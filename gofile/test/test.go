@@ -162,6 +162,7 @@ func main() {
 	fmt.Println(pop([]int{2,5,4,1,9,5,3,7,2}))
 	fun1 := func(a int)int{return a * 10}
 	fmt.Println(mapfunc(fun1,[]int{1,2,3,4,5}))
+	fmt.Println(123)
 }
 
 // func map1 map[key]
