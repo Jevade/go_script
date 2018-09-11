@@ -12,7 +12,7 @@ func main(){
 	slicetest()
 }
 type T typeString.T
-func slicetest(){
+func Slicetest(){
 	var sli1 = []byte {'1','2'}
 	sli1 = append(sli1,'1','2','3')
 
