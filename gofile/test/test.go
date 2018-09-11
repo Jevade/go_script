@@ -12,7 +12,9 @@ import (
 	"runtime"
 	"sort"
 	"strings"
+	"strconv"
 	"time"
+	"./inter"
 )
 
 var re = regexp.MustCompile("[0-9]+")
@@ -175,12 +177,37 @@ func MapTest() {
 	newMap2["is"] = 3
 	fmt.Println(newMap)
 	for i := 0; i < 200; i++ {
-		newMap[string(i)] = uint32(i)
+		newMap[strconv.Itoa(i)] = uint32(i)
 	}
-
-	fmt.Println(MapSearch("333", newMap))
+	fmt.Println(MapSearch("33", newMap))
+	Test_inter()
 
 }
+func Test_inter(){
+	var name inter.Namer
+	person := inter.NewPerson("lily","ansist")
+	name = person
+	fmt.Println(name.Get())
+	cat := new(inter.Cat)
+	name = cat
+	if _,ok := name.(*inter.Person);ok{
+	    fmt.Println("type of name is Person")
+	}
+	if _,ok := name.(*inter.Cat);ok{
+	    fmt.Println("type of name is cat")
+	}
+	name = person
+	switch  name.(type){
+			case *inter.Cat:
+			fmt.Println("type of name is cat")
+			case *inter.Person:
+			fmt.Println("type of name is person")
+	}
+	name.Set("six")
+	fmt.Println(name.Get())
+
+}
+
 func MapSearch(key string, themap map[string]uint32) uint32 {
 	value, isStored := themap[key]
 	if !isStored {
