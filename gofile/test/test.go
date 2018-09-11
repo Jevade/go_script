@@ -163,12 +163,6 @@ func main() {
 	fmt.Println(sort.SearchInts(numSlice, 5), numSlice)
 	fmt.Println(sl713("it is a very useful question"))
 	fmt.Println(copyRepu("itt iss a very useful question"))
-<<<<<<< HEAD
-	fmt.Println(pop([]int{2,5,4,1,9,5,3,7,2}))
-	fun1 := func(a int)int{return a * 10}
-	fmt.Println(mapfunc(fun1,[]int{1,2,3,4,5}))
-	fmt.Println(123)
-=======
 	fmt.Println(pop([]int{2, 5, 4, 1, 9, 5, 3, 7, 2}))
 	fun1 := func(a int) int { return a * 10 }
 	fmt.Println(mapfunc(fun1, []int{1, 2, 3, 4, 5}))
@@ -220,7 +214,6 @@ func MapSearch(key string, themap map[string]uint32) uint32 {
 		panic("not exist")
 	}
 	return value
->>>>>>> ad95354943097fdb34996bbe89dbe6434a2603bf
 }
 
 // func map1 map[key]

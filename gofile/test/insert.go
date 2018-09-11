@@ -9,7 +9,7 @@ import (
 )
 func main(){
 	fmt.Println(124)
-	slicetest()
+	Slicetest()
 }
 type T typeString.T
 func Slicetest(){
