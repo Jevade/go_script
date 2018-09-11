@@ -168,12 +168,25 @@ func main() {
 
 }
 func MapTest() {
-	newMap := make(map[string]uint32)
+	newMap := make(map[string]uint32, 100)
 	newMap2 := newMap
 	newMap["it"] = 2
 	fmt.Println(len(newMap), newMap)
 	newMap2["is"] = 3
 	fmt.Println(newMap)
+	for i := 0; i < 200; i++ {
+		newMap[string(i)] = uint32(i)
+	}
+
+	fmt.Println(MapSearch("333", newMap))
+
+}
+func MapSearch(key string, themap map[string]uint32) uint32 {
+	value, isStored := themap[key]
+	if !isStored {
+		panic("not exist")
+	}
+	return value
 }
 
 // func map1 map[key]
