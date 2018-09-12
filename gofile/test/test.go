@@ -2,18 +2,33 @@ package main
 
 //https://github.com/Jevade/the-way-to-go_ZH_CN/blob/master/eBook/07.3.m
 import (
+	"./pack1"
+	"./greetings"
+	"./timeCheck"
 	"regexp"
+	"container/list"
 	"bytes"
 	"io/ioutil"
 	"fmt"
 	"sort"
+	"io"
+	"os"
+	// "unsafe"
+	"strconv"
 	"math"
+	"math/big"
 	"strings"
+	"sync"
 	"errors"
 	"runtime"
 	"log"
 	"time"
+	"archive/tar"
 )
+type Info struct{
+	mu sync.Mutex
+	Str string
+}
 var re = regexp.MustCompile("[0-9]+")
 var fibs [50]int
 func main() {
@@ -162,8 +177,180 @@ func main() {
 	fmt.Println(pop([]int{2,5,4,1,9,5,3,7,2}))
 	fun1 := func(a int)int{return a * 10}
 	fmt.Println(mapfunc(fun1,[]int{1,2,3,4,5}))
+	smap := map[string]string{"Itlia":"Roma","British":"London"}
+	mapkv(smap)
+
+	sliceMap := make([]map[int]int,5) 
+	sliceMap = initSliceMap(sliceMap)
+	fmt.Println(sliceMap)
+	ListPt() 
+	strFuc("John: 2578.34 William: 4567.23 Steve")
+	BigNum()
+	pack1.Hello()
+	greetings.SayHi()
+	greetings.SayBye()
+	if timeCheck.ISAM(){
+		fmt.Println("good morning")
+	}
+	if timeCheck.ISPM(){
+
+		fmt.Println("good afternoon")
+	}
+	if timeCheck.ISEVE(){
+
+		fmt.Println("good envning")
+	}
+	Mywrite()
+	// rw()
+	Sever()
+}
+func Mywrite(){
+	// buf := bytes.Buffer
+	var buf bytes.Buffer
+	tw := tar.NewWriter(&buf)
+	var files = []struct{
+		Name , Body string
+	}{
+		{"readme.txt","It is a introduction of files."},
+		{"text.txt","what is that"},
+		{"licence.lic","licence to Jevade"},
+	}
+	for _,file := range files{
+		tar := &tar.Header{
+			Name:file.Name,
+			Mode:0777,
+			Size:int64(len(file.Body)),
+		}
+		if err := tw.WriteHeader(tar);err!=nil{
+			log.Fatal(err)
+		}
+		if _,err := tw.Write([]byte(file.Body));err != nil{
+			log.Fatal(err)
+		}
+
+	}
+	if err := tw.Close();err != nil{
+		log.Fatal(err)
+	}
+}
+func rw(){
+	// Create and add some files to the archive.
+var buf bytes.Buffer
+tw := tar.NewWriter(&buf)
+var files = []struct {
+    Name, Body string
+}{
+    {"readme.txt", "This archive contains some text files."},
+    {"gopher.txt", "Gopher names:\nGeorge\nGeoffrey\nGonzo"},
+    {"todo.txt", "Get animal handling license."},
+}
+for _, file := range files {
+    hdr := &tar.Header{
+        Name: file.Name,
+        Mode: 0600,
+        Size: int64(len(file.Body)),
+    }
+    if err := tw.WriteHeader(hdr); err != nil {
+        log.Fatal(err)
+    }
+    if _, err := tw.Write([]byte(file.Body)); err != nil {
+        log.Fatal(err)
+    }
+}
+if err := tw.Close(); err != nil {
+    log.Fatal(err)
 }
 
+// Open and iterate through the files in the archive.
+tr := tar.NewReader(&buf)
+for {
+    hdr, err := tr.Next()
+    if err == io.EOF {
+        break // End of archive
+    }
+    if err != nil {
+        log.Fatal(err)
+    }
+    fmt.Printf("Contents of %s:\n", hdr.Name)
+    // if _, err := io.Copy(os.Stdout, tr); err != nil {
+        // log.Fatal(err)
+	// }
+	io.Copy(os.Stdout, tr);
+    fmt.Println()
+}
+
+}
+func BigNum(){
+	// im := big.NewInt(math.MaxInt64)
+	// in := im
+	// ip := big.NewInt(1)
+	ip := big.NewInt(1956)
+	fmt.Println(ip.Sub(ip, big.NewInt(1950)).Mul( ip,big.NewInt(2)))
+}
+func Update(info * Info){
+	info.mu.Lock()
+	info.Str = "12"
+	info.mu.Unlock()
+}
+type SyncedBuffer struct{
+	lock sync.Mutex
+	buffer bytes.Buffer
+}
+func strFuc(str string){
+	pat := "[0-9]+.[0-9]+"
+	f := func(s string)string{//对于regexp找出的每一个字符串使用该函数处理后返回
+		v,_ := strconv.ParseFloat(s,32)
+		fmt.Println(v)
+		fmt.Println(strconv.FormatFloat(v*2,'f',2,32))
+		return strconv.FormatFloat(v,'f',2,32)
+	}
+	if ok,_ := regexp.Match(pat,[]byte(str));ok{
+		fmt.Println("Not found")
+	}
+	re,_ := regexp.Compile(pat)
+	str1 := re.ReplaceAllString(str,"##.#")
+	fmt.Println(str1)
+	str2 := re.ReplaceAllStringFunc(str,f)//使用f处理匹配到的字符串，替换原有的字符串
+	fmt.Println(str2)
+}
+func ListPt(){
+	thelist := list.New()
+	for i:=0;i<5;i++{
+		thelist.PushBack(i)
+	}
+	for i:= thelist.Front();i!=nil;i=i.Next(){
+		fmt.Println(i.Value)
+	}
+}
+func sortMap(sliceMap map[int]int){
+	keySlice := make([]int,len(sliceMap))
+	index := 0
+	for k,_ := range sliceMap{
+		keySlice[index] = k
+		index++
+	}
+	sort.Ints(keySlice)
+	for key := range keySlice{
+		fmt.Println(sliceMap[key])
+	}
+}
+func initSliceMap(sliceMap []map[int]int)([]map[int]int){
+	for i,_ := range sliceMap{
+		sliceMap[i]= make(map[int]int) 
+	    sliceMap[i][i] = i
+	}
+	return sliceMap
+}
+
+func mapkv(maps map[string]string){
+	for k,v := range maps{
+		fmt.Println("key:",k,"value:",v)
+	}
+
+	for k := range maps{
+		fmt.Println("key:",k,"map[k]",maps[k])
+	}
+}
 // func map1 map[key]
 func mapfunc(fun func(int)int,slice []int )[]int{
 	for ix := range slice{
