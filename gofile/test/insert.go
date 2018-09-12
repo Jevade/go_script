@@ -2,12 +2,17 @@
 
 import (
             "fmt"
+	    "./typeString"
+	    "./day"
+	    "./tz"
+	    "./stackArr"
 )
 func main(){
 	fmt.Println(124)
-	slicetest()
+	Slicetest()
 }
-func slicetest(){
+type T typeString.T
+func Slicetest(){
 	var sli1 = []byte {'1','2'}
 	sli1 = append(sli1,'1','2','3')
 
@@ -15,38 +20,16 @@ func slicetest(){
 	sliss:= []int{1,2,3}
 	sliss = append(sliss,2,3)
 	fmt.Println(sliss)
-
+        t := &typeString.T{7,-2.35,"abc\tdef"}
+	da := day.Day(int(6))
+	fmt.Println(da)
+	fmt.Printf("%v\n",t)
+	tzz := tz.TZ(0)
+	fmt.Println("tz", int(tzz) ,"is:",tzz)
+	stack := new(stackArr.StackArr)
+	stack.Push(1)
+	fmt.Println(stack)
+	stack.Push(2)
+	fmt.Println(stack)
+	fmt.Println(stack.Pop(),stack)
 }
-// func main() {
-//         a := insertSort(1, 2)
-//         fmt.Println(a)
-//         result, ok := mysqrt(1121)
-//         if ok {
-//                 fmt.Println(result)
-//         }
-//         fmt.Println(IsNumPosi(17.0))
-//         season, err := Season(3)
-//         if err {
-//                 fmt.Println("not in range")
-//                 return
-//         }
-//         fmt.Println(season)
-//         itera(7)
-//         iteraStr("This is a very import question!")
-//         gotointera(9)
-//         printIttera(10)
-//         printGoIttera(10)
-//         fmt.Println(MultiPly3Num(1,2,3))
-//         fmt.Println(add(1,2))
-//         fmt.Println(add_3(1,2))
-//         fmt.Println(sub(1,2))
-//         fmt.Println(sub_3(1,2))
-//         fmt.Println(multi(1,2))
-//         fmt.Println(multi_3(1,2))
-//         fmt.Println(mysqrts_3(123))
-// }
-
-
-
-
-
