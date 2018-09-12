@@ -19,7 +19,11 @@ import (
 
 var re = regexp.MustCompile("[0-9]+")
 var fibs [50]int
-
+func ShowMemStatus(){
+    var m runtime.MemStats
+    runtime.ReadMemStats(&m)
+    fmt.Printf("%d Kb  used \n",m.Alloc/1024)
+}
 func main() {
 	where := func() {
 		_, file, line, _ := runtime.Caller(1)
@@ -167,8 +171,53 @@ func main() {
 	fun1 := func(a int) int { return a * 10 }
 	fmt.Println(mapfunc(fun1, []int{1, 2, 3, 4, 5}))
 	MapTest()
+	Test_inter()
+        ShowMemStatus()
+        Test_InterComp()
+}
+
+
+type List  []int
+
+func(T List)Len()int{
+    return len(T)
+}
+
+func (T *List)Append(val int){
+      *T = append(*T,val)
+}
+
+type Appender interface{
+	Append(int)
+}
+
+type Lener interface{
+    Len()int
+}
+
+func CountInfo(A Appender,start,end int){
+	for ix :=start;ix<end;ix++{
+	    A.Append(ix)
+	}
 
 }
+
+func Long(L Lener)bool{
+
+    return L.Len()*10 > 42
+}
+
+func Test_InterComp(){
+    var lst List
+    fmt.Println(Long(lst))
+    //CountInfo(lst,2,4)
+    plst := new(List)
+    CountInfo(plst,4,9)
+    fmt.Println(Long(plst))
+}
+
+
+
 func MapTest() {
 	newMap := make(map[string]uint32, 100)
 	newMap2 := newMap
@@ -180,7 +229,6 @@ func MapTest() {
 		newMap[strconv.Itoa(i)] = uint32(i)
 	}
 	fmt.Println(MapSearch("33", newMap))
-	Test_inter()
 
 }
 func Test_inter(){
@@ -205,6 +253,11 @@ func Test_inter(){
 	}
 	name.Set("six")
 	fmt.Println(name.Get())
+	if sv,ok := name.(inter.Namer);ok{
+	    fmt.Println("namer relized Get()",sv.Get())
+	}else{
+	    fmt.Println("namer does not release Get()",sv)
+	}
 
 }
 
