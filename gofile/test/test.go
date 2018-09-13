@@ -25,6 +25,8 @@ func ShowMemStatus(){
     fmt.Printf("%d Kb  used \n",m.Alloc/1024)
 }
 func main() {
+	si := [3]int{1,2,3};sii := si[:]
+	fmt.Println(sii)
 	where := func() {
 		_, file, line, _ := runtime.Caller(1)
 		log.Print(file, ":", line)

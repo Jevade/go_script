@@ -6,12 +6,30 @@ import (
 	    "./day"
 	    "./tz"
 	    "./stackArr"
+	    "./sort"
 )
 func main(){
 	fmt.Println(124)
 	Slicetest()
+	Ints()
 }
+
+func Ints(){
+    intlist := []int{123,45,-34,67,-89,899,-3422}
+    a := sort.IntArray(intlist)
+    fmt.Printf("the origin list of int is %v\n",a)
+    sort.Sort(a)
+    if !sort.IsSorted(a){
+        panic("falied")
+    }
+    fmt.Printf("the sorted list of int is %v\n",a)
+
+
+
+}
+
 type T typeString.T
+
 func Slicetest(){
 	var sli1 = []byte {'1','2'}
 	sli1 = append(sli1,'1','2','3')
