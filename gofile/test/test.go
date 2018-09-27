@@ -2,34 +2,33 @@ package main
 
 //https://github.com/Jevade/the-way-to-go_ZH_CN/blob/master/eBook/07.3.m
 import (
+	"archive/tar"
 	"bytes"
 	"container/list"
 	"errors"
 	"fmt"
 	"io"
-	"os"
-	"regexp"
-	"sort"
-
-	"./greetings"
-	"./pack1"
-	"./timeCheck"
-
-	// "unsafe"
-	"archive/tar"
 	"io/ioutil"
 	"log"
 	"math"
 	"math/big"
+	"os"
+	"regexp"
 	"runtime"
+	"sort"
 	"strconv"
 	"strings"
 	"sync"
 	"time"
 
+	"./greetings"
 	"./inter"
+	"./pack1"
+	"./theprint"
+	"./timeCheck"
 )
 
+// struct Info
 type Info struct {
 	mu  sync.Mutex
 	Str string
@@ -38,13 +37,19 @@ type Info struct {
 var re = regexp.MustCompile("[0-9]+")
 var fibs [50]int
 
+//ShowMemStatus show infomation of memory used
+//
+//the status is shown by kb
 func ShowMemStatus() {
+
 	var m runtime.MemStats
 	runtime.ReadMemStats(&m)
 	fmt.Printf("%d Kb  used \n", m.Alloc/1024)
 }
+
 func main() {
-	si := [3]int{1,2,3};sii := si[:]
+	si := [3]int{1, 2, 3}
+	sii := si[:]
 	fmt.Println(sii)
 	where := func() {
 		_, file, line, _ := runtime.Caller(1)
@@ -223,7 +228,53 @@ func main() {
 	Test_inter()
 	ShowMemStatus()
 	Test_InterComp()
+	TestInterfacePrint()
+	mydog := new(Mydog)
+	mydog.Set("kiki")
+	var namer inter.Namer
+	namer = mydog
+	if _, ok := namer.(*Mydog); ok { //测试namer中是否存在一个*Mydog类型的变量
+		fmt.Println(" have release namer")
+	} else {
+		fmt.Println(" does not contain a variable ")
+	}
+	testInterAddfun(namer)
+	inter.TestDynamicAddInter()
 }
+func testInterAddfun(attr inter.Namer) {
+	fmt.Println(" ")
+	fmt.Println(attr.Get())
+}
+
+type Mydog struct {
+	name string
+}
+
+func (T *Mydog) Get() string {
+	return T.name
+}
+
+func (T *Mydog) Set(name string) {
+	T.name = name
+}
+
+// TestInterfacePrint is to test
+//
+//
+//
+func TestInterfacePrint() {
+	days := theprint.Day(1)
+
+	var floats theprint.Myfloat
+	floats.Set(223.12)
+	str := theprint.Strings("123")
+	theprint.PrintValue(days, floats, str)
+}
+
+//Mywrite uunc introduction
+//
+//Detail
+//_
 func Mywrite() {
 	// buf := bytes.Buffer
 	var buf bytes.Buffer
@@ -253,6 +304,11 @@ func Mywrite() {
 		log.Fatal(err)
 	}
 }
+
+//Fuunc introduction
+//
+//Detail
+//_
 func rw() {
 	// Create and add some files to the archive.
 	var buf bytes.Buffer
@@ -300,6 +356,11 @@ func rw() {
 	}
 
 }
+
+//Fuunc introduction
+//
+//Detail
+//_
 func BigNum() {
 	// im := big.NewInt(math.MaxInt64)
 	// in := im
@@ -307,12 +368,21 @@ func BigNum() {
 	ip := big.NewInt(1956)
 	fmt.Println(ip.Sub(ip, big.NewInt(1950)).Mul(ip, big.NewInt(2)))
 }
+
+//Fuunc introduction
+//
+//Detail
+//_
 func Update(info *Info) {
 	info.mu.Lock()
 	info.Str = "12"
 	info.mu.Unlock()
 }
 
+//Fuunc introduction
+//
+//Detail
+//_
 type SyncedBuffer struct {
 	lock   sync.Mutex
 	buffer bytes.Buffer
@@ -335,6 +405,11 @@ func strFuc(str string) {
 	str2 := re.ReplaceAllStringFunc(str, f) //使用f处理匹配到的字符串，替换原有的字符串
 	fmt.Println(str2)
 }
+
+//Fuunc introduction
+//
+//Detail
+//_
 func ListPt() {
 	thelist := list.New()
 	for i := 0; i < 5; i++ {
@@ -364,24 +439,48 @@ func initSliceMap(sliceMap []map[int]int) []map[int]int {
 	return sliceMap
 }
 
+//Type introduction
+//
+//Detail
+//_
 type List []int
 
+//Func introduction
+//
+//Detail
+//_
 func (T List) Len() int {
 	return len(T)
 }
 
+//Func introduction
+//
+//Detail
+//_
 func (T *List) Append(val int) {
 	*T = append(*T, val)
 }
 
+//Func introduction
+//
+//Detail
+//_
 type Appender interface {
 	Append(int)
 }
 
+//Func introduction
+//
+//Detail
+//_
 type Lener interface {
 	Len() int
 }
 
+//Func introduction
+//
+//Detail
+//_
 func CountInfo(A Appender, start, end int) {
 	for ix := start; ix < end; ix++ {
 		A.Append(ix)
@@ -389,11 +488,19 @@ func CountInfo(A Appender, start, end int) {
 
 }
 
+//Func introduction
+//
+//Detail
+//_
 func Long(L Lener) bool {
 
 	return L.Len()*10 > 42
 }
 
+//Func introduction
+//
+//Detail
+//_
 func Test_InterComp() {
 	var lst List
 	fmt.Println(Long(lst))
@@ -403,6 +510,10 @@ func Test_InterComp() {
 	fmt.Println(Long(plst))
 }
 
+//Func introduction
+//
+//Detail
+//_
 func MapTest() {
 	newMap := make(map[string]uint32, 100)
 	newMap2 := newMap
@@ -416,6 +527,11 @@ func MapTest() {
 	fmt.Println(MapSearch("33", newMap))
 
 }
+
+//Func introduction
+//
+//Detail
+//_
 func Test_inter() {
 	var name inter.Namer
 	person := inter.NewPerson("lily", "ansist")
@@ -446,6 +562,10 @@ func Test_inter() {
 
 }
 
+//Func introduction
+//
+//Detail
+//_
 func MapSearch(key string, themap map[string]uint32) uint32 {
 	value, isStored := themap[key]
 	if !isStored {
@@ -530,6 +650,11 @@ func findNum(filename string) []byte {
 	}
 	return c
 }
+
+//Func introduction
+//
+//Detail
+//_
 func StrComp(a, b []byte) bool {
 	for i := 0; i < len(a) && i < len(b); i++ {
 		switch {
@@ -547,6 +672,11 @@ func chstring(str string, pos int, c byte) string {
 	s[pos] = c
 	return string(s)
 }
+
+//Func introduction
+//
+//Detail
+//_
 func RemoveStringSlice(slice []byte, start, end int) []byte {
 	if start < 0 {
 		start = 0
@@ -560,6 +690,11 @@ func RemoveStringSlice(slice []byte, start, end int) []byte {
 	copy(slice[start:], newslice)
 	return slice
 }
+
+//Func introduction
+//
+//Detail
+//_
 func InsertStringSlice(slice []byte, c byte, pos int) []byte {
 	fmt.Println("origin slice is", slice)
 	if pos > len(slice)-1 {
@@ -593,6 +728,10 @@ func filterOdd(slice []int, fun func(int) bool) []int {
 	return newslice
 }
 
+//Func introduction
+//
+//Detail
+//_
 func IsOdd(num int) bool {
 	if num%2 == 1 {
 		return true
@@ -666,7 +805,7 @@ func numfib(num int) []int {
 	return re
 }
 func diffNewMake() {
-	var makeslice []int = make([]int, 5, 10)
+	makeslice := make([]int, 5, 10)
 	for ix := range makeslice {
 		makeslice[ix] = ix * 5
 	}
@@ -695,11 +834,21 @@ func maxSlice(slice []int) (max int) {
 	}
 	return
 }
+
+//Func introduction
+//
+//Detail
+//_
 func SumAndAverage(a int, b float32) (sum, ave float32) {
 	sum = float32(a) + b
 	ave = (sum / 2)
 	return
 }
+
+//Func introduction
+//
+//Detail
+//_
 func Sum(arr []float32) (re float32) {
 	for ix := range arr {
 		re += arr[ix]
@@ -715,6 +864,10 @@ func arrayOp() {
 	fmt.Println(items)
 }
 
+//Func introduction
+//
+//Detail
+//_
 func pfListIx(list []string) {
 	for ix := range list {
 		fmt.Println("the ", ix, "th num", list[ix])
@@ -768,6 +921,10 @@ func mysqrt(num float64) (result float64, ok bool) {
 	return
 }
 
+//Func introduction
+//
+//Detail
+//_
 func IsNumPosi(num float64) (flag bool) {
 	switch {
 	case num > 0:
@@ -777,6 +934,11 @@ func IsNumPosi(num float64) (flag bool) {
 	}
 	return
 }
+
+//Func introduction
+//
+//Detail
+//_
 func Season(num int) (season string, err bool) {
 
 	switch num {
@@ -826,7 +988,7 @@ func gotointera(num int) {
 	i := 0
 LABLE1:
 	fmt.Printf("this is %d th iteraations\n", i)
-	i += 1
+	i++
 	if i == num {
 		return
 	}
@@ -853,6 +1015,10 @@ func printGoIttera(num int) {
 	// }
 }
 
+//"MultiPly3Num can return mutli of three number"
+//
+//Detail
+//_
 func MultiPly3Num(a, b, c int) (multi int) { //multi 被初始化为0
 	multi = a * b * c
 	return
@@ -904,10 +1070,18 @@ func mysqrts_3(a float64) (re float64, err error) {
 	return re, err
 }
 
+//ThreeValues sunc introduction
+//
+//Detail
+//_
 func ThreeValues() (int, int, float32) {
 	return 5, 6, 7.5
 }
 
+// MinMax is to swap min and max
+//
+//Detail
+//_
 func MinMax(a int, b int) (min int, max int) {
 	if a < b {
 		min = a
@@ -919,10 +1093,18 @@ func MinMax(a int, b int) (min int, max int) {
 	return
 }
 
+// Multiply is to test multiply
+//
+//
+//
 func Multiply(a, b int, reply *int) {
 	*reply = a * b
 }
 
+// MinList is to test multiply
+//
+//
+//
 func MinList(list ...int) (min int) {
 	if (len(list)) == 0 {
 		return
@@ -938,10 +1120,19 @@ func MinList(list ...int) (min int) {
 	return
 }
 
+// Multiply is to test multiply
+//
+//
+//
 func F1(s ...string) {
 	F2(s...)
 	F3(s)
 }
+
+// Multiply is to test multiply
+//
+//
+//
 func F2(s ...string) {
 	if len(s) == 0 {
 		return
@@ -950,6 +1141,11 @@ func F2(s ...string) {
 		fmt.Println(v)
 	}
 }
+
+// Multiply is to test multiply
+//
+//
+//
 func F3(s []string) {
 	if len(s) == 0 {
 		return
@@ -984,6 +1180,10 @@ func un(s string) {
 	fmt.Println("leaving", s)
 }
 
+// Multiply is to test multiply
+//
+//
+//
 func A() {
 	defer un(trace("a"))
 	fmt.Println("in a")
@@ -1017,6 +1217,10 @@ func fibonacci(n int) (res int) {
 	return
 }
 
+// Multiply is to test multiply
+//
+//
+//
 func fibonacci_cache(n int) (res int) {
 	if fibs[n] != 0 {
 		res = fibs[n]
@@ -1031,6 +1235,10 @@ func fibonacci_cache(n int) (res int) {
 	return
 }
 
+// Multiply is to test multiply
+//
+//
+//
 func getFib_n(n int) (int, int) {
 	return n, fibonacci(n)
 
@@ -1061,6 +1269,11 @@ func printStepList(n int) {
 		fmt.Println(i, step(i), ",")
 	}
 }
+
+// Multiply is to test multiply
+//
+//
+//
 func IsAssic(c rune) bool {
 	if int(c) > 255 {
 		return false
@@ -1082,12 +1295,12 @@ func replaceNoASSIC(s string) string {
 }
 
 func fibonacciC() func() int {
-	var result_0 int
+	var result0 int
 	result := 1
 	a := func() int {
 		temp := result
-		result += result_0
-		result_0 = temp
+		result += result0
+		result0 = temp
 		return result
 	}
 	return a
