@@ -8,11 +8,13 @@ import (
 
 	"./car"
 	"./employee"
+	"./file"
 	"./integer"
 	"./point"
 	"./vendo"
 )
 
+// Address store address
 type Address struct {
 	code    string "mail code of address"
 	street  string "street of address"
@@ -20,6 +22,7 @@ type Address struct {
 	country string "country of address"
 }
 
+//VCard info
 type VCard struct {
 	adress    *Address
 	name      string
@@ -71,7 +74,23 @@ func main() {
 	vendo.MoreMagic()
 	integer.Test()
 	integer.Test2()
+	readFile("insert.go")
+
+	//读入csv文件
+	ps := file.ReadProduct("product.txt")
+	file.PrintProducts(ps)
+	file.UnCompress("1.zip")
+	file.WriteFile("1.txt")
+	file.CopyFile("2.txt", "1.txt")
 }
+
+func readFile(name string) {
+	page := &file.Page{}
+	page.Read(name)
+	page.PrintTitle()
+	page.PrintContent(100)
+}
+
 func reflectType(tt Address, idx int) {
 	ttType := reflect.TypeOf(tt)
 	ixField := ttType.Field(idx)
@@ -99,8 +118,8 @@ func root(w http.ResponseWriter, r *http.Request) {
 	rootHtmlTmpl.Execute(w, nil)
 }
 func long(w http.ResponseWriter, r *http.Request) {
-	shortUrl := r.FormValue("shortUrl")
+	shortURL := r.FormValue("shortUrl")
 
-	longUrl := "long__" + shortUrl
-	rootHtmlTmpl.Execute(w, fmt.Sprintf("Longer version of %s is : %s", shortUrl, longUrl))
+	longURL := "long__" + shortURL
+	rootHtmlTmpl.Execute(w, fmt.Sprintf("Longer version of %s is : %s", shortURL, longURL))
 }

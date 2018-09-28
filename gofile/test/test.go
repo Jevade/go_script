@@ -3,6 +3,7 @@ package main
 //https://github.com/Jevade/the-way-to-go_ZH_CN/blob/master/eBook/07.3.m
 import (
 	"archive/tar"
+	"bufio"
 	"bytes"
 	"container/list"
 	"errors"
@@ -240,7 +241,80 @@ func main() {
 	}
 	testInterAddfun(namer)
 	inter.TestDynamicAddInter()
+	// testScanByUser()
+	testBufio()
+	wordLettercount()
 }
+
+func calc() {
+	numStack
+}
+func wordLettercount() {
+	var (
+		input string
+		// err   error
+	)
+	inputreader := bufio.NewReader(os.Stdin)
+	fmt.Println("please input you string")
+	input, _ = inputreader.ReadString('S')
+	fmt.Println("##########")
+	fmt.Println(input)
+	var numChar, numWord, numLine int
+	flagC := true
+	for ix := range input {
+		// fmt.Println(ix, input[ix])
+		fmt.Printf("%d:%c\n", ix, input[ix])
+		if input[ix] != '\r' && input[ix] != '\n' {
+			numChar++
+		}
+		if input[ix] == '\n' {
+			numLine++
+		}
+		if input[ix] > 64 && input[ix] < 123 && flagC {
+			flagC = false
+			numWord++
+		} else {
+			flagC = true
+		}
+	}
+	fmt.Println("three num is ", numChar, numWord, numLine+1)
+
+}
+
+func testBufio() {
+	var (
+		input string
+		// err   error
+	)
+	inputreader := bufio.NewReader(os.Stdin)
+	fmt.Println("please input you string")
+	input, _ = inputreader.ReadString('\n')
+	fmt.Println("echo", input)
+	switch input {
+	case "Jevade\n":
+		fallthrough
+	case "Minmin\n":
+		fallthrough
+	case "Wy\n":
+		fmt.Println("Welcome", input)
+	default:
+		fmt.Println("You are not welcome", input)
+	}
+
+}
+
+func testScanByUser() {
+	var (
+		firstName, secondName string
+		intA, intB            int8
+		format                = "%d %d"
+	)
+	fmt.Scanln(&firstName, &secondName)
+	fmt.Println(firstName, secondName)
+	fmt.Scanf(format, &intA, &intB)
+	fmt.Printf("%4.4d_%4.4d", intA, intB)
+}
+
 func testInterAddfun(attr inter.Namer) {
 	fmt.Println(" ")
 	fmt.Println(attr.Get())

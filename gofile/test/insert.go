@@ -35,6 +35,7 @@ func main() {
 	Ints()
 }
 
+//Ints will test Ints sort function
 func Ints() {
 	intlist := []int{123, 45, -34, 67, -89, 899, -3422}
 	a := sort.IntArray(intlist)
