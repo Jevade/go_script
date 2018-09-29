@@ -8,6 +8,7 @@ import (
 	"io"
 	"os"
 	"strconv"
+	"flag"
 )
 
 //Page to read file content
@@ -164,3 +165,53 @@ func CopyFile(desName, srcName string) {
 	defer dst.Close()
 	io.Copy(dst, src)
 }
+//Cat2 is cat things
+func Cat2(r *os.File){
+	fmt.Println("923")
+	const NBUF = 512
+	var buf [NBUF]byte
+    for{
+	    switch nr,err := r.Read(buf[:]);true{
+		case nr < 0:
+				fmt.Fprintf(os.Stderr,"errot:%s",err.Error())
+			os.Exit(1)
+        case nr == 0:
+            return
+        case nr > 0:
+		    if nw ,ew := os.Stdout.Write(buf[0:nr]);nw != nr{
+					fmt.Fprintf(os.Stderr,"cat:errty%s",ew.Error())
+            }
+        }
+    }
+}
+//Cat is cat things
+func Cat(r *bufio.Reader){
+	fmt.Println("923")
+    for{
+	    buf ,err := r.ReadString('\n')
+		if err == io.EOF{
+		   fmt.Println(err)
+			break
+		}
+	    fmt.Fprintf(os.Stdout,"%s",buf)
+	}
+	return
+}
+//MyCat is my cat
+func MyCat(){
+    flag.Parse()
+	fmt.Println("params:",flag.Args())
+	if flag.NArg() ==0{
+	    Cat(bufio.NewReader(os.Stdin))
+	}
+	for ix :=0;ix<flag.NArg();ix++{
+	    f,err := os.Open(flag.Arg(ix))
+		if err != nil{
+		    fmt.Fprintf(os.Stderr,"%s:errpr reading from %s:%s\n",os.Args[0],flag.Arg(ix),err.Error())
+		}
+	defer f.Close()
+	Cat2(f)
+	}
+
+}
+

@@ -1,8 +1,10 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"net/http"
+	"os"
 	"reflect"
 	"text/template"
 
@@ -82,8 +84,26 @@ func main() {
 	file.UnCompress("1.zip")
 	file.WriteFile("1.txt")
 	file.CopyFile("2.txt", "1.txt")
+	//TestMyFlag()
+	file.MyCat()
 }
-
+func TestMyFlag() {
+	var NewLine = flag.Bool("n", false, "print newline")
+	var Newline = "\n"
+	// flag.PrintDefaults()
+	flag.Parse()
+	var s string = ""
+	for ix := 0; ix < flag.NArg(); ix++ {
+		if ix > 0 {
+			s += ""
+			if *NewLine {
+				s += Newline
+			}
+		}
+		s += flag.Arg(ix)
+	}
+	os.Stdout.WriteString(s)
+}
 func readFile(name string) {
 	page := &file.Page{}
 	page.Read(name)
