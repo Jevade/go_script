@@ -1,8 +1,10 @@
 package main
 
 import (
+	"encoding/json"
 	"flag"
 	"fmt"
+	"log"
 	"net/http"
 	"os"
 	"reflect"
@@ -16,12 +18,16 @@ import (
 	"./vendo"
 )
 
+//Go中需要被外部访问到的值均需要首字母大写，
+//小写的话是私有值，无法被外部访问
+
 // Address store address
 type Address struct {
 	code    string "mail code of address"
 	street  string "street of address"
 	city    string "city of address"
 	country string "country of address"
+	Num     int    "num"
 }
 
 //VCard info
@@ -39,8 +45,34 @@ func print(T *VCard) {
 	fmt.Println(T.corpation)
 }
 
+// SaveJson will save []byte to json file
+func SaveJson(js []byte, jsonName string) {
+	file, _ := os.OpenFile(jsonName, os.O_WRONLY|os.O_CREATE, 0666)
+	defer file.Close()
+	enc := json.NewEncoder(file)
+	err := enc.Encode(js)
+	if err != nil {
+		log.Println("error in encoding json!", err)
+	}
+}
+
+// ReadJson get json string
+func ReadJson(filename string) {
+	file, _ := os.Open(filename)
+	defer file.Close()
+	dec := json.NewDecoder(file)
+	var str []byte
+	err := dec.Decode(&str)
+	var in interface{}
+	json.Unmarshal(str, &in)
+	if err != nil {
+		log.Println("decode error", err)
+		return
+	}
+	fmt.Println(in)
+}
 func main() {
-	myVCard := new(VCard)
+	myVCard := VCard{}
 	myVCard.adress = new(Address)
 	myVCard.adress.city = "bj"
 	myVCard.adress.country = "CN"
@@ -50,13 +82,14 @@ func main() {
 	myVCard.corpation = "COMAC"
 	myVCard.name = "Jevade"
 	myVCard.telNum = "13112345678"
-	print(myVCard)
+	print(&myVCard)
 	p1 := new(point.Point2D)
 	p1.Set(2, 3)
 	p2 := &point.Point2D{3, 5}
 	fmt.Println(p1.ABS2D())
 	p1.Scale(2)
 	fmt.Println(p1.ABS2D())
+	//数学 网络
 	fmt.Println(p1.Dis(p2))
 	p3 := point.Point3D{1, point.Point2D{2, 3}}
 	fmt.Println((&p3).ABS2D())
@@ -85,8 +118,39 @@ func main() {
 	file.WriteFile("1.txt")
 	file.CopyFile("2.txt", "1.txt")
 	//TestMyFlag()
-	file.MyCat()
+	// file.MyCat()
+
+	fmt.Println(myVCard.adress)
+	adress := Address{street: "1", city: "2", code: "3", country: "4", Num: 123}
+	js, err := json.Marshal(adress)
+	fmt.Println("err:", err, adress)
+	os.Stdout.Write(js)
+	fmt.Printf("Json format:%s\n", js)
+
+	type ColorGroup struct {
+		ID     int
+		Name   string
+		Colors []string
+	}
+	group := ColorGroup{
+		ID:     1,
+		Name:   "Reds",
+		Colors: []string{"Crimson", "Red", "Ruby", "Maroon"},
+	}
+	b, err := json.Marshal(group)
+	if err != nil {
+		fmt.Println("error:", err)
+	}
+	// SaveJson(b, "Vcard.json")
+	// var mygropu interface{}
+	ReadJson("Vcard.json")
+	var mygropu ColorGroup
+	json.Unmarshal(b, &mygropu)
+	fmt.Println(mygropu)
+
 }
+
+//TestMyFlag is to func as  cat
 func TestMyFlag() {
 	var NewLine = flag.Bool("n", false, "print newline")
 	var Newline = "\n"
