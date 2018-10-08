@@ -112,11 +112,11 @@ func main() {
 	readFile("insert.go")
 
 	//读入csv文件
-	ps := file.ReadProduct("product.txt")
-	file.PrintProducts(ps)
-	file.UnCompress("1.zip")
-	file.WriteFile("1.txt")
-	file.CopyFile("2.txt", "1.txt")
+	// ps := file.ReadProduct("product.txt")
+	// file.PrintProducts(ps)
+	// file.UnCompress("1.zip")
+	// file.WriteFile("1.txt")
+	// file.CopyFile("2.txt", "1.txt")
 	//TestMyFlag()
 	// file.MyCat()
 
@@ -147,7 +147,33 @@ func main() {
 	var mygropu ColorGroup
 	json.Unmarshal(b, &mygropu)
 	fmt.Println(mygropu)
+    Check()
+	protect(TestPaninc)
+	fmt.Println("END")
+}
 
+func Check(){
+	var user = os.Getenv("USER")
+	if user == ""{
+		panic("Unknown user: no value for $USER")
+	}else{
+		fmt.Println(user,"is runing")
+	}
+}
+
+func protect(g func()){
+   defer func(){
+	   log.Println("done")
+	   if err := recover();err!=nil{
+		   log.Printf("run time panic:%v", err)
+       }
+   }()
+	log.Println("start")
+	g()
+}
+
+func TestPaninc(){
+	panic(12222)
 }
 
 //TestMyFlag is to func as  cat
