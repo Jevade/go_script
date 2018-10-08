@@ -1,6 +1,7 @@
 package file
 
 import (
+	"encoding/gob"
 	"bufio"
 	"compress/gzip"
 	"encoding/csv"
@@ -9,6 +10,9 @@ import (
 	"os"
 	"strconv"
 	"flag"
+	"log"
+	"encoding/json"
+	"encoding/xml"
 )
 
 //Page to read file content
@@ -58,6 +62,101 @@ type Product struct {
 	name     string
 	price    float64
 	quentity int
+}
+
+type NewProduct struct{
+	Product
+	Year int
+}
+//Svjson will sava object  int o json flle by  []byte
+func Svjson(value interface{},jsonname string){
+	js,_ :=json.Marshal(value)
+	file ,_ := os.OpenFile(jsonname,os.O_WRONLY|os.O_CREATE,0666)
+	defer file.Close()
+	enc := json.NewEncoder(file)
+	enc.Encode(js)
+}
+
+//Rdjson will get info from json file
+func RdJson(filename string){
+	file ,_ := os.Open(filename)
+	defer file.Close()
+	dec := json.NewDecoder(file)
+	var str []byte
+    dec.Decode(&str)
+	var in interface{}
+    json.Unmarshal(str,&in)
+    fmt.Println(in)
+}
+//Svxml
+func Svxml(v interface{}, filename string){
+
+}
+
+type T struct{
+	X int
+	Y int
+	Z int
+}
+
+type Q struct{
+    X int
+	Y int
+	Zs int
+}
+
+//Svgob save object to gob file
+func Svgob (filename string, v *T){
+	file,_ := os.OpenFile(filename,os.O_CREATE|os.O_WRONLY,0666)
+	defer file.Close()
+	enc := gob.NewEncoder(file)
+	err := enc.Encode(*v)
+	if err!=nil{
+		log.Println("Error in encoding gob1")
+	}
+
+}
+
+//Rdgob test gob
+func Rdgob(filename string,v *Q){
+	file ,err1:= os.Open(filename)
+	if err1 != nil {
+		log.Fatal("encode error:", err1)
+	}
+	defer file.Close()
+    inputReader := bufio.NewReader(file)
+	dec := gob.NewDecoder(inputReader)
+	err := dec.Decode(v)
+	if err != nil {
+		log.Fatal("encode error:", err)
+	}
+}
+
+//Rdxml 
+func Rdxml(filename string){
+	fmt.Println("read xml***********************8")
+	file,_ := os.Open(filename) 
+	defer file.Close()
+	inputReader := xml.NewDecoder(file)
+	for t,err:= inputReader.Token();err == nil;t,err =inputReader.Token(){
+		switch token :=t.(type){
+		case xml.StartElement:
+			name := token.Name.Local
+			fmt.Printf("Token name is %s\n",name)
+			for _,attr := range token.Attr{
+				attrName := attr.Name.Local
+				attrValue := attr.Value
+				fmt.Printf("an attr is %s:%s",attrName,attrValue)
+			}
+		case xml.EndElement:
+			fmt.Println("end of token")
+		case xml.CharData:
+			content := string([]byte(token))
+			fmt.Printf("This is the content %v\n", content)
+		default:
+			continue
+		}
+	}
 }
 
 //ReadProduct read info from file
