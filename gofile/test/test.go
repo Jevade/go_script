@@ -246,9 +246,6 @@ func main() {
 	wordLettercount()
 }
 
-func calc() {
-	numStack
-}
 func wordLettercount() {
 	var (
 		input string

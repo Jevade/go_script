@@ -16,6 +16,7 @@ import (
 	"./integer"
 	"./point"
 	"./vendo"
+	"./parse"
 )
 
 //Go中需要被外部访问到的值均需要首字母大写，
@@ -147,32 +148,53 @@ func main() {
 	var mygropu ColorGroup
 	json.Unmarshal(b, &mygropu)
 	fmt.Println(mygropu)
-    Check()
+	Check()
 	protect(TestPaninc)
 	fmt.Println("END")
+	TestParse()
 }
 
-func Check(){
-	var user = os.Getenv("USER")
-	if user == ""{
-		panic("Unknown user: no value for $USER")
-	}else{
-		fmt.Println(user,"is runing")
+
+func TestParse(){
+	var examples =[]string{
+		"1 2 3 4 5",
+		"100 50 25 12.5 6.25",
+		"2 + 2 = 4",
+		"1st class",
+		"",
+	}
+	for idx := range examples{
+		fmt.Printf("Parsing %q:\n",examples[idx])
+		nums,err:= myparse.MyParse(examples[idx])
+		if err!=nil{
+			fmt.Println(err)
+			continue
+		}
+		fmt.Println(nums)
 	}
 }
 
-func protect(g func()){
-   defer func(){
-	   log.Println("done")
-	   if err := recover();err!=nil{
-		   log.Printf("run time panic:%v", err)
-       }
-   }()
+func Check() {
+	var user = os.Getenv("USER")
+	if user == "" {
+		panic("Unknown user: no value for $USER")
+	} else {
+		fmt.Println(user, "is runing")
+	}
+}
+
+func protect(g func()) {
+	defer func() {
+		log.Println("done")
+		if err := recover(); err != nil {
+			log.Printf("run time panic:%v", err)
+		}
+	}()
 	log.Println("start")
 	g()
 }
 
-func TestPaninc(){
+func TestPaninc() {
 	panic(12222)
 }
 
