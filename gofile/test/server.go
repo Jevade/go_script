@@ -14,9 +14,10 @@ import (
 	"./employee"
 	"./file"
 	"./integer"
+	"./myexec"
+	"./parse"
 	"./point"
 	"./vendo"
-	"./parse"
 )
 
 //Go中需要被外部访问到的值均需要首字母大写，
@@ -150,23 +151,28 @@ func main() {
 	fmt.Println(mygropu)
 	Check()
 	protect(TestPaninc)
-	fmt.Println("END")
 	TestParse()
+	fmt.Println("END1")
+	go myexec.MyStartProcessls()
+	myexec.MyStartProcessps()
+
+	myexec.MyStartProcessCMD()
+	fmt.Println("END")
 }
 
-
-func TestParse(){
-	var examples =[]string{
+//TestParse is TestParse
+func TestParse() {
+	var examples = []string{
 		"1 2 3 4 5",
 		"100 50 25 12.5 6.25",
 		"2 + 2 = 4",
 		"1st class",
 		"",
 	}
-	for idx := range examples{
-		fmt.Printf("Parsing %q:\n",examples[idx])
-		nums,err:= myparse.MyParse(examples[idx])
-		if err!=nil{
+	for idx := range examples {
+		fmt.Printf("Parsing %q:\n", examples[idx])
+		nums, err := myparse.MyParse(examples[idx])
+		if err != nil {
 			fmt.Println(err)
 			continue
 		}

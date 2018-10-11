@@ -18,7 +18,7 @@ func init() {
 	flag.StringVar(&name, "name", "every", "the greeting object.")
 	// flag.String()
 }
-func main() {
+func Maini() {
 	flag.Usage = func() {
 
 		fmt.Fprintf(os.Stderr, "Usage of %s/n", "question")

@@ -48,7 +48,7 @@ func ShowMemStatus() {
 	fmt.Printf("%d Kb  used \n", m.Alloc/1024)
 }
 
-func main() {
+func Maint() {
 	si := [3]int{1, 2, 3}
 	sii := si[:]
 	fmt.Println(sii)
