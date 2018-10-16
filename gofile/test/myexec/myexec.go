@@ -22,7 +22,7 @@ func MyStartProcessps() {
 		fmt.Printf("Error %v starting process!", err)
 		os.Exit(1)
 	}
-	fmt.Printf("the process is %v\n", pid)
+	fmt.Printf("***********ps process is %v\n", pid)
 }
 
 //MyStartProcessls is My StartProcess
@@ -41,7 +41,7 @@ func MyStartProcessls() {
 		fmt.Printf("Error %v starting process!", err)
 		os.Exit(1)
 	}
-	fmt.Printf("the process is %v\n", pid)
+	fmt.Printf("************ls process is %v\n", pid)
 }
 
 //MyStartProcessCMD is My StartProcess
@@ -52,5 +52,5 @@ func MyStartProcessCMD() {
 		fmt.Printf("Error %v starting process!", err)
 		os.Exit(1)
 	}
-	fmt.Printf("the cmd is %v\n", cmd)
+	fmt.Printf("**********cmd is %v\n", cmd)
 }

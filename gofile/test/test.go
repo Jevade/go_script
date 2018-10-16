@@ -25,8 +25,10 @@ import (
 	"./greetings"
 	"./inter"
 	"./pack1"
+	"./server"
 	"./theprint"
 	"./timeCheck"
+	"./transploar"
 )
 
 // struct Info
@@ -48,7 +50,9 @@ func ShowMemStatus() {
 	fmt.Printf("%d Kb  used \n", m.Alloc/1024)
 }
 
-func Maint() {
+func main() {
+	myserver.MyServer()
+	transploar.P2C()
 	si := [3]int{1, 2, 3}
 	sii := si[:]
 	fmt.Println(sii)
@@ -72,11 +76,11 @@ func Maint() {
 	}
 	where()
 	fmt.Println(season)
-	itera(7)
+	itera(7) //循环
 	iteraStr("This is a very import question!")
-	gotointera(9)
-	printIttera(10)
-	printGoIttera(10)
+	gotointera(9)   //循环使用goto ,调到指定的tag label
+	printIttera(10) //
+	printGoIttera(4)
 	fmt.Println(MultiPly3Num(1, 2, 3))
 	fmt.Println(add(1, 2))
 	fmt.Println(add_3(1, 2))
@@ -106,53 +110,28 @@ func Maint() {
 	fmt.Println(replaceNoASSIC("HELLOJLJ$#@HJK刘家伟"))
 	fun := func(x, y int) int { return x * y }
 	fmt.Println(fun(1, 2))
-	fmt.Println(f())
+	fmt.Println(f()) //defer 是在 return之后运行，因此可以用来修改返回值，
 	fmt.Println("闭包")
-	num := 10
-
-	now := time.Now()
-	for i := 0; i < num; i++ {
-		fmt.Println(fibonacci(i))
-	}
-	end := time.Now()
-	delta := end.Sub(now)
-	fmt.Printf("recurisive fib took this amount of time: %s\n", delta)
-	now = time.Now()
-	for i := 0; i < num; i++ {
-		fmt.Println(fibonacci_cache(i))
-	}
-	end = time.Now()
-	delta = end.Sub(now)
-	fmt.Printf("cache fib took this amount of time: %s\n", delta)
-
-	a_c := fibonacciC()
-	now = time.Now()
-	for i := 0; i < num; i++ {
-		fmt.Println(a_c())
-	}
-	end = time.Now()
-	delta = end.Sub(now)
-	fmt.Printf("close package fid took this amount of time: %s\n", delta)
-
 	where()
-	array()
+	array() //int array 的初始值为 0,一系列初始值nil,0,
 
 	as := new([3]int)
 	ff(*as)
 	ffp(as)
-	var lists [5]int = [...]int{1, 2, 3, 4, 5}
-	list1 := [5]int{3: 1233, 4: 234}
-	list2 := []int{2, 3, 4}[:2]
+	lists := [...]int{1, 2, 3, 4, 5}
+	list1 := [5]int{3: 1233, 4: 234} //array 的第3和第4个值有赋值，其他的是默认初始值0
+	list2 := []int{2, 3, 4}[:2]      //list2是一个切片，使用了{2,3,4}的前两个元素，长度是2，但是容量是3
 	ss := [3]int{1, 2, 3}
 	s := ss[:]
 	list4 := [6]int{2, 3, 4, 5, 6, 7}
 	fmt.Println(lists, list1, len(list2), cap(list2), list4, list4[:2])
+	where()
 	fmt.Println(sumArray(list4[:]))
 	fmt.Println(s, list4)
 	pfList(list4[:], "string")
 	list5 := []string{"old", "old", "old"}[:]
 	pfListIx(list5)
-	arrayOp()
+	arrayOp() //slice中的元素自乘
 	list6 := []float32{1.1, 1.2, 1.3, 1.4, 1.5}
 	fmt.Println(Sum(list6[:3]))
 
@@ -161,13 +140,14 @@ func Maint() {
 	fmt.Println(SumAndAverage(2, 2.4))
 	diffNewMake()
 	fmt.Println(numfib(35))
-	z := []byte{'a', 'b', 'c', 'd', 'e'}
+	tz := [20]byte{'a', 'b', 'c', 'd', 'e'}
+	z := tz[:6]
 	fmt.Println(len(z), cap(z))
 	s2 := z[2:]
 	s2[1] = 't'
 	qz := []byte{'a', 'b', 'c', 'd', 'e'}
 	fmt.Println(z)
-	fmt.Println(len(z), cap(z))
+	fmt.Println("len and cap", len(z), cap(z))
 	z = apps(z, qz)
 	fmt.Println(z)
 	fmt.Println(len(z), cap(z))
@@ -243,9 +223,85 @@ func Maint() {
 	inter.TestDynamicAddInter()
 	// testScanByUser()
 	testBufio()
-	wordLettercount()
+	// wordLettercount()
+	testFebnachi(30)
 }
+func testFebnachi(num int) {
 
+	now := time.Now()
+	for i := 0; i < num; i++ {
+		fmt.Println(fibonacci(i))
+	}
+	end := time.Now()
+	delta := end.Sub(now)
+	fmt.Printf("recurisive fib took this amount of time: %s\n", delta)
+
+	now = time.Now()
+	ch1 := make(chan int)
+	go func() {
+		for i := 0; i < num; i++ {
+			ch1 <- fibonacci_cache(i)
+		}
+	}()
+	for i := 0; i < num; i++ {
+		fmt.Println(<-ch1)
+	}
+	end = time.Now()
+	delta = end.Sub(now)
+	fmt.Printf("cache fib with goroution took this amount of time: %s\n", delta)
+
+	now = time.Now()
+	for i := 0; i < num; i++ {
+		fmt.Println(fibonacci_cache(i))
+	}
+	end = time.Now()
+	delta = end.Sub(now)
+	fmt.Printf("cache fib took this amount of time: %s\n", delta)
+
+	a_c := fibonacciC()
+	now = time.Now()
+	for i := 0; i < num; i++ {
+		fmt.Println(a_c())
+	}
+	end = time.Now()
+	delta = end.Sub(now)
+	fmt.Printf("close package fid took this amount of time: %s\n", delta)
+
+	start := time.Now()
+	x := fib()
+	for i := 0; i < num; i++ {
+		fmt.Println(<-x)
+	}
+	end = time.Now()
+	delta = end.Sub(start)
+	fmt.Printf("longCalculation took this amount of time: %s\n", delta)
+}
+func dup3(in <-chan int) (<-chan int, <-chan int, <-chan int) {
+	a, b, c := make(chan int, 2), make(chan int, 2), make(chan int, 2)
+	go func() {
+		for {
+			x := <-in
+			a <- x
+			b <- x
+			c <- x
+		}
+	}()
+	return a, b, c
+}
+func fib() <-chan int {
+	x := make(chan int, 2)
+	a, b, c := dup3(x)
+	go func() {
+		x <- 0
+		x <- 1
+		<-a
+		for {
+			x <- <-a + <-b
+		}
+	}()
+	return c
+
+}
 func wordLettercount() {
 	var (
 		input string
@@ -854,7 +910,7 @@ func appslice() {
 func apps(slice, data []byte) []byte {
 	if cap(slice) > len(slice)+len(data) {
 		for ix := 0; ix < len(data); ix++ {
-			slice[len(slice)] = data[ix]
+			slice = append(slice, data[ix])
 		}
 	} else {
 		var buffer bytes.Buffer
@@ -949,7 +1005,7 @@ func pfListIx(list []string) {
 
 func pfList(list ...interface{}) {
 	for ix, value := range list {
-		fmt.Println("the ", ix, "th num is", value)
+		fmt.Println("the ", ix, "th interface is", value)
 	}
 }
 
@@ -1078,7 +1134,7 @@ func printIttera(num int) {
 }
 func printGoIttera(num int) {
 	str := strings.Repeat("G", num)
-	for i := 1; i < num; i++ {
+	for i := 0; i < num; i++ {
 		fmt.Println(str)
 	}
 	// for {

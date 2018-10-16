@@ -9,6 +9,7 @@ import (
 	"os"
 	"reflect"
 	"text/template"
+	"time"
 
 	"./car"
 	"./employee"
@@ -17,6 +18,7 @@ import (
 	"./myexec"
 	"./parse"
 	"./point"
+	"./roution"
 	"./vendo"
 )
 
@@ -154,10 +156,16 @@ func main() {
 	TestParse()
 	fmt.Println("END1")
 	go myexec.MyStartProcessls()
-	myexec.MyStartProcessps()
-
-	myexec.MyStartProcessCMD()
+	go myexec.MyStartProcessps()
+	go myexec.MyStartProcessCMD()
 	fmt.Println("END")
+	time.Sleep(2 * 1e9)
+	fmt.Println(roution.MutilCump([]float64{1, 2, 3, 4, 5}, roution.Log))
+	fmt.Println(roution.MutilCump([]float64{1, 2, 3, 4, 5}, roution.Mutil))
+	fmt.Println(roution.MutilCump([]float64{1, 2, 3, 4, 5}, roution.Sqrt))
+	// roution.PC()
+	// roution.RunRoution()
+	roution.TestLoop()
 }
 
 //TestParse is TestParse
