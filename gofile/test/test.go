@@ -22,6 +22,7 @@ import (
 	"sync"
 	"time"
 
+	"./factory"
 	"./greetings"
 	"./inter"
 	"./pack1"
@@ -51,6 +52,7 @@ func ShowMemStatus() {
 }
 
 func main() {
+	factory.BuildFibEvaluator()
 	myserver.MyServer()
 	transploar.P2C()
 	si := [3]int{1, 2, 3}
