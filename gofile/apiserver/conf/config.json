@@ -1,0 +1,8 @@
+{
+    "runmode" : "debug",
+    "addr" : 6668,
+    "name" : "apiserver",
+    "url" : "http://127.0.0.1:6668",
+    "max_ping_count" : 10,
+    "value" : 12.32
+}

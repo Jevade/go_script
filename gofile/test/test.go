@@ -13,6 +13,7 @@ import (
 	"log"
 	"math"
 	"math/big"
+	"net/http"
 	"os"
 	"regexp"
 	"runtime"
@@ -50,8 +51,27 @@ func ShowMemStatus() {
 	runtime.ReadMemStats(&m)
 	fmt.Printf("%d Kb  used \n", m.Alloc/1024)
 }
+func pingServer() error {
+	for i := 0; i < 2; i++ {
+		// Ping the server by sending a GET request to `/health`.
+		resp, err := http.Get("http://127.0.0.1:8080/sd/headlth")
+		if err == nil && resp.StatusCode == 200 {
+			fmt.Println(resp.Body)
+			return nil
+		}
 
+		// Sleep for a second to continue the next ping.
+		log.Print("Waiting for the router, retry in 1 second.")
+		time.Sleep(time.Second)
+	}
+	return errors.New("Cannot connect to the router.")
+}
 func main() {
+	ch := make(chan int)
+	fmt.Println("123")
+	err1 := pingServer()
+	fmt.Println(err1)
+	<-ch
 	factory.BuildFibEvaluator()
 	myserver.MyServer()
 	transploar.P2C()

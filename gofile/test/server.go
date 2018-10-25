@@ -1,13 +1,18 @@
 package main
 
 import (
+	"bufio"
 	"encoding/json"
+	"encoding/xml"
 	"flag"
 	"fmt"
+	"io/ioutil"
 	"log"
+	"net"
 	"net/http"
 	"os"
 	"reflect"
+	"strings"
 	"text/template"
 	"time"
 
@@ -20,10 +25,128 @@ import (
 	"./point"
 	"./roution"
 	"./vendo"
+	"./web"
 )
 
 //Go中需要被外部访问到的值均需要首字母大写，
 //小写的话是私有值，无法被外部访问
+// ,ok 1 作为函数返回值，衡量函数是否出错
+// if value,err := func(v),err!=nil{
+//   process(v)
+// }
+
+//2 检验映射里面里面是否有键值
+// if v, ok = map[key]; ok {
+//     process(v)
+// }
+
+//3 类型断言 检查接口类型是否包含了某类型
+// if value,ok := v.(T);ok{
+//     process(value)
+// }
+
+// 4 判断通道是否关闭
+// if value,ok := <-ch;ok{
+//     process(value)
+//  }
+
+// 修改字符串字符
+// str := "Hello"
+// c := []byte(str)
+// c[0]='c'
+// s2 := string(c)
+
+//获取字符串子串
+// subStr := str[m,n]
+
+// 获取字符串的字符数
+// len(str)
+
+// utf8.RuneCountInString(str)
+
+// len([]byte(str))
+
+// 连接字符串 str1,str2
+// 使用缓存的方式最快速
+// var buffer bytes.Buffer
+// buffer.WriteString(str1)
+// buffer.WriteString(str2)
+//也可以使用 +=
+// str1 += str2
+
+//解析命令行参数 os.Args flag.Parse
+
+//map1 := make(map[keytype]valuetype)
+//for key,value := range map1{
+// }
+
+//val1 , isPresent = map1[key1]
+//delete(map1,key1)
+//
+
+// type struct1 struct{
+// field1 type1
+// field2 type2
+// field3 type3
+// }
+// ms := new(struct1)
+// ms := &struct1{1,2,3}
+// ms := NewStruct(1,2,3)
+//构建函数，作为唯一的获得类的方式，类名小写，对包外不可见，从而隐藏包的细节
+// func NewStruct(a,b,c int)(* struct1){
+// return &struct1(a,b,c)
+// }
+
+// 接口
+// if v,ok := v.(Stringer),ok{
+// 	fmt.Println("v 实现了接口Stringer")
+// }
+
+// func classifier(items ...interface{}){
+// 	for i,x := range items{
+// 		switch x.(type){
+// 		case bool:
+// 			fmt.Println("Bool")
+// 		case int:
+// 			fmt.Println("int")
+// 		case float64:
+// 			fmt.Println("float")
+// 		default:
+// 			fmt.Println(x.(type))
+
+// 	}
+// }
+//函数 防止panic程序崩溃,使用内建函数recover终止panic
+// func protect(g func()){
+// 	defer func(){
+// 		fmt.Println("done")
+// 		if x:= recover();x!=nil{
+// 			log.Panicln("run time panic")
+// 		}
+// 	}()
+// 	log.Println("Start")
+// 	g()
+// }
+
+//取消耗时很长的同步调用
+// func quary(conns[]Conn,query string)Result{
+// 	ch := make(chan Result ,1)//缓冲为保证至少第一个发送过来的数据可以存放，
+// 	for _,conn := conns{
+// 		go func(conn Conn){
+// 			select{
+// 			case ch <- conn.Do(query):
+// 			default:
+// 			}
+// 			// result,err:= conn.Do(query)
+// 			// if err!=nil{
+// 			// 	fmt.Println("Connect error")
+// 			// 	return
+// 			// }
+// 			// ch <- result
+// 		}(conn)
+// 	}
+// 	return <-ch
+// }
 
 // Address store address
 type Address struct {
@@ -75,7 +198,124 @@ func ReadJson(filename string) {
 	}
 	fmt.Println(in)
 }
+
+func startServer() {
+	listener, err := net.Listen("tcp", "127.0.0.1:50000")
+	if err != nil {
+		fmt.Println("It is err to listen tcp link")
+		return
+	}
+	for {
+		conn, err := listener.Accept()
+		if err != nil {
+			fmt.Println("Error to Accept ")
+			return
+		}
+		go solveConn(conn)
+
+	}
+
+}
+
+func solveConn(conn net.Conn) {
+	for {
+		data := make([]byte, 512)
+		n, err := conn.Read(data)
+		if err != nil {
+			fmt.Println("Read data field")
+			return
+		}
+		fmt.Printf("Received data:%v\n", string(data[:n]))
+
+	}
+}
+
+func client() {
+	conn, err := net.Dial("tcp", "127.0.0.1:50000")
+	if err != nil {
+		fmt.Println("Failed to Diel")
+		return
+	}
+	for {
+		inputReader := bufio.NewReader(os.Stdin)
+		fmt.Println("input you data")
+		data, _ := inputReader.ReadString('\n')
+		trimmedInput := strings.Trim(data, "\r\n")
+		conn.Write([]byte(trimmedInput))
+	}
+}
+
+type Status struct {
+	Text string
+}
+
+type User struct {
+	XMLName xml.Name
+	Status  Status
+}
+
+func main2() {
+	// 发起请求查询推特Goodland用户的状态
+	response, _ := http.Get("http://twitter.com/users/Googland.xml")
+	// 初始化XML返回值的结构
+	user := User{xml.Name{"", "user"}, Status{""}}
+	// 将XML解析为我们的结构
+	data, _ := ioutil.ReadAll(response.Body)
+	xml.Unmarshal(data, &user)
+	fmt.Printf("status: %s", user.Status.Text)
+}
+func main3() {
+	var values = [5]int{10, 11, 12, 13, 14}
+	for ix := range values {
+		fmt.Println(values[ix])
+	}
+	fmt.Println()
+	time.Sleep(5e9)
+	for ix := range values {
+		go func() {
+			fmt.Println(values[ix])
+		}()
+
+	}
+	fmt.Println()
+	time.Sleep(5e9)
+	for ix := range values {
+		go func(i int) {
+			fmt.Println(i)
+		}(ix)
+
+	}
+	fmt.Println()
+	time.Sleep(5e9)
+	for ix := range values {
+		value := values[ix]
+		go func() {
+			fmt.Println(value)
+		}()
+
+	}
+}
 func main() {
+	main3()
+	web.Server()
+	main2()
+	var url string
+	for {
+		fmt.Scanln(&url)
+		web.TalkToServer(url)
+	}
+	c := make(chan int)
+	go func() {
+		fmt.Println("ggogoogog")
+		c <- 1
+		close(c)
+	}()
+	for v := range c {
+		fmt.Println(v)
+	}
+
+	go startServer()
+	client()
 	myVCard := VCard{}
 	myVCard.adress = new(Address)
 	myVCard.adress.city = "bj"
