@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"./config"
+	"./model"
 	"./router"
 	"github.com/gin-gonic/gin"
 	"github.com/lexkong/log"
@@ -19,11 +20,16 @@ var (
 )
 
 func main() {
+	//读取配置文件，初始化链接选项
 	pflag.Parse()
 	if err := config.Init(*cfg); err != nil {
 		panic(err)
 	}
+	//初始化数据库连接
+	model.DB.Init()
+	defer model.DB.Close()
 
+	//设置运行模式
 	gin.SetMode(viper.GetString("runmode"))
 	g := gin.New()
 	middlerwares := []gin.HandlerFunc{}
@@ -40,7 +46,7 @@ func main() {
 	}()
 
 	log.Infof("Start to listening the incoming  http address: %s", viper.GetString("addr"))
-	http.ListenAndServe(":"+viper.GetString("addr"), g)
+	log.Info(http.ListenAndServe(":"+viper.GetString("addr"), g).Error())
 	// log.Printf(http.ListenAndServe(":8080", g))
 }
 

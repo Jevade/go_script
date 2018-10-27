@@ -4,8 +4,9 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/gin-gonic/gin"
 	"github.com/lexkong/log"
+
+	"github.com/gin-gonic/gin"
 	"github.com/shirou/gopsutil/cpu"
 	"github.com/shirou/gopsutil/disk"
 	"github.com/shirou/gopsutil/load"
@@ -21,14 +22,14 @@ const (
 
 //HealthCheck is check health
 func HealthCheck(c *gin.Context) {
-	log.Infof("IP:%s,TYPE:%s", c.ClientIP(), c.ContentType())
+	log.Info("visit health")
 	message := "ok"
 	c.String(http.StatusOK, message)
 }
 
 //DiskCheck is to check disk
 func DiskCheck(c *gin.Context) {
-	log.Infof("IP:%s,TYPE:%s", c.ClientIP(), c.ContentType())
+	log.Info("visit disk")
 	u, _ := disk.Usage("/")
 	usedMB := int(u.Used) / MB
 	usedGB := int(u.Used) / GB
@@ -52,7 +53,7 @@ func DiskCheck(c *gin.Context) {
 
 //CPUCheck is to check CPU
 func CPUCheck(c *gin.Context) {
-	log.Infof("IP:%s,TYPE:%s", c.ClientIP(), c.ContentType())
+	log.Info("visit cpu")
 	test, _ := cpu.Counts(true)
 	cores, _ := cpu.Counts(false)
 	a, _ := load.Avg()
@@ -76,7 +77,7 @@ func CPUCheck(c *gin.Context) {
 
 //RAMCheck is to check ram
 func RAMCheck(c *gin.Context) {
-	log.Infof("IP:%s,TYPE:%s", c.ClientIP(), c.ContentType())
+	log.Info("visit ram")
 	u, _ := mem.VirtualMemory()
 	usedMB := int(u.Used) / MB
 	usedGB := int(u.Used) / GB

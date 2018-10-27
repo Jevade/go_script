@@ -19,7 +19,9 @@ func Init(configPath string) (err error) {
 
 	//初始化配置文件
 	if err = c.initConfig(); err != nil {
+		log.Error("Config field", err)
 		return
+
 	}
 
 	//初始化日志配置
@@ -41,7 +43,10 @@ func (c *Config) initLog() {
 		LogRotateSize:  viper.GetInt("log.log_rotate_size"),
 		LogBackupCount: viper.GetInt("log.log_backup_count"),
 	}
-	log.InitWithConfig(&passLagerCfg)
+	if err := log.InitWithConfig(&passLagerCfg); err != nil {
+		log.Warn("faild config log 1111111111111111111111" + err.Error())
+	}
+	log.Info("success config log 222222222222222222" + viper.GetString("log.logger_file"))
 }
 
 func (c *Config) initConfig() error {

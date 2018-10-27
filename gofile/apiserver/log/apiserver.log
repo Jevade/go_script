@@ -1,0 +1,91 @@
+{"level":"INFO","timestamp":"2018-10-25 23:19:59.289","file":"config/config.go:49","msg":"success config log 222222222222222222log/apiserver.log"}
+{"level":"INFO","timestamp":"2018-10-25 23:19:59.293","file":"sd/check.go:25","msg":"112221212121212"}
+{"level":"INFO","timestamp":"2018-10-25 23:20:15.137","file":"sd/check.go:32","msg":"112221212121212"}
+{"level":"INFO","timestamp":"2018-10-25 23:20:26.541","file":"sd/check.go:32","msg":"112221212121212"}
+{"level":"INFO","timestamp":"2018-10-25 23:20:27.983","file":"sd/check.go:32","msg":"112221212121212"}
+{"level":"INFO","timestamp":"2018-10-25 23:20:29.222","file":"sd/check.go:32","msg":"112221212121212"}
+{"level":"INFO","timestamp":"2018-10-25 23:20:30.828","file":"sd/check.go:32","msg":"112221212121212"}
+{"level":"INFO","timestamp":"2018-10-25 23:20:32.029","file":"sd/check.go:32","msg":"112221212121212"}
+{"level":"INFO","timestamp":"2018-10-25 23:20:33.132","file":"sd/check.go:32","msg":"112221212121212"}
+{"level":"INFO","timestamp":"2018-10-25 23:20:34.224","file":"sd/check.go:32","msg":"112221212121212"}
+{"level":"INFO","timestamp":"2018-10-25 23:25:45.635","file":"config/config.go:49","msg":"success config log 222222222222222222log/apiserver.log"}
+{"level":"INFO","timestamp":"2018-10-25 23:25:45.636","file":"sd/check.go:25","msg":"112221212121212"}
+{"level":"INFO","timestamp":"2018-10-25 23:25:49.213","file":"sd/check.go:32","msg":"112221212121212"}
+{"level":"INFO","timestamp":"2018-10-25 23:25:56.571","file":"sd/check.go:32","msg":"112221212121212"}
+{"level":"INFO","timestamp":"2018-10-25 23:26:02.013","file":"sd/check.go:32","msg":"112221212121212"}
+{"level":"INFO","timestamp":"2018-10-25 23:26:03.465","file":"sd/check.go:32","msg":"112221212121212"}
+{"level":"INFO","timestamp":"2018-10-25 23:26:09.037","file":"sd/check.go:32","msg":"112221212121212"}
+{"level":"INFO","timestamp":"2018-10-25 23:26:10.214","file":"sd/check.go:32","msg":"112221212121212"}
+{"level":"INFO","timestamp":"2018-10-26 14:05:58.530","file":"config/config.go:49","msg":"success config log 222222222222222222log/apiserver.log"}
+{"level":"INFO","timestamp":"2018-10-26 14:05:58.532","file":"sd/check.go:25","msg":"112221212121212"}
+{"level":"INFO","timestamp":"2018-10-26 14:06:46.561","file":"sd/check.go:25","msg":"112221212121212"}
+{"level":"INFO","timestamp":"2018-10-26 14:06:49.248","file":"sd/check.go:25","msg":"112221212121212"}
+{"level":"INFO","timestamp":"2018-10-26 14:06:50.480","file":"sd/check.go:25","msg":"112221212121212"}
+{"level":"INFO","timestamp":"2018-10-26 14:06:51.483","file":"sd/check.go:25","msg":"112221212121212"}
+{"level":"INFO","timestamp":"2018-10-26 14:07:16.830","file":"sd/check.go:56","msg":"112221212121212"}
+{"level":"INFO","timestamp":"2018-10-26 14:07:21.999","file":"sd/check.go:80","msg":"112221212121212"}
+{"level":"INFO","timestamp":"2018-10-26 14:21:21.195","file":"config/config.go:77","msg":"Config file changed conf/config.yaml"}
+{"level":"INFO","timestamp":"2018-10-26 14:21:30.487","file":"config/config.go:49","msg":"success config log 222222222222222222log/apiserver.log"}
+{"level":"INFO","timestamp":"2018-10-26 14:21:30.489","file":"sd/check.go:25","msg":"112221212121212"}
+{"level":"INFO","timestamp":"2018-10-26 14:45:17.174","file":"config/config.go:77","msg":"Config file changed conf/config.yaml"}
+{"level":"INFO","timestamp":"2018-10-26 18:27:24.433","file":"config/config.go:77","msg":"Config file changed conf/config.yaml"}
+{"level":"INFO","timestamp":"2018-10-26 18:28:01.442","file":"config/config.go:77","msg":"Config file changed conf/config.yaml"}
+{"level":"INFO","timestamp":"2018-10-26 19:07:25.521","file":"config/config.go:77","msg":"Config file changed conf/config.yaml"}
+{"level":"INFO","timestamp":"2018-10-26 19:07:32.718","file":"config/config.go:49","msg":"success config log 222222222222222222log/apiserver.log"}
+{"level":"INFO","timestamp":"2018-10-26 19:09:09.786","file":"config/config.go:49","msg":"success config log 222222222222222222log/apiserver.log"}
+{"level":"INFO","timestamp":"2018-10-26 19:12:07.948","file":"config/config.go:49","msg":"success config log 222222222222222222log/apiserver.log"}
+{"level":"INFO","timestamp":"2018-10-26 19:13:52.850","file":"config/config.go:49","msg":"success config log 222222222222222222log/apiserver.log"}
+{"level":"INFO","timestamp":"2018-10-26 19:15:18.512","file":"config/config.go:49","msg":"success config log 222222222222222222log/apiserver.log"}
+{"level":"INFO","timestamp":"2018-10-26 19:16:29.015","file":"config/config.go:49","msg":"success config log 222222222222222222log/apiserver.log"}
+{"level":"INFO","timestamp":"2018-10-26 19:17:16.820","file":"config/config.go:49","msg":"success config log 222222222222222222log/apiserver.log"}
+{"level":"INFO","timestamp":"2018-10-26 19:18:34.158","file":"config/config.go:49","msg":"success config log 222222222222222222log/apiserver.log"}
+{"level":"INFO","timestamp":"2018-10-26 19:22:06.712","file":"config/config.go:49","msg":"success config log 222222222222222222log/apiserver.log"}
+{"level":"ERROR","timestamp":"2018-10-26 19:22:06.716","file":"model/init.go:106","msg":"Database connection failed. Database name: db_apiserver","data":{"error":"cannot find local in zip file /usr/local/Cellar/go/1.10.2/libexec/lib/time/zoneinfo.zip"}}
+{"level":"ERROR","timestamp":"2018-10-26 19:22:06.716","file":"model/init.go:106","msg":"Database connection failed. Database name: db_apiserver","data":{"error":"cannot find local in zip file /usr/local/Cellar/go/1.10.2/libexec/lib/time/zoneinfo.zip"}}
+{"level":"INFO","timestamp":"2018-10-26 19:22:06.736","file":"sd/check.go:25","msg":"112221212121212"}
+{"level":"INFO","timestamp":"2018-10-26 19:25:26.427","file":"config/config.go:49","msg":"success config log 222222222222222222log/apiserver.log"}
+{"level":"ERROR","timestamp":"2018-10-26 19:25:26.428","file":"model/init.go:105","msg":"Database connection failed. Database name: db_apiserver","data":{"error":"cannot find local in zip file /usr/local/Cellar/go/1.10.2/libexec/lib/time/zoneinfo.zip"}}
+{"level":"ERROR","timestamp":"2018-10-26 19:25:26.428","file":"model/init.go:105","msg":"Database connection failed. Database name: db_apiserver","data":{"error":"cannot find local in zip file /usr/local/Cellar/go/1.10.2/libexec/lib/time/zoneinfo.zip"}}
+{"level":"INFO","timestamp":"2018-10-26 19:25:26.429","file":"sd/check.go:25","msg":"112221212121212"}
+{"level":"INFO","timestamp":"2018-10-26 19:26:09.103","file":"sd/check.go:25","msg":"112221212121212"}
+{"level":"INFO","timestamp":"2018-10-26 19:30:18.739","file":"config/config.go:49","msg":"success config log 222222222222222222log/apiserver.log"}
+{"level":"ERROR","timestamp":"2018-10-26 19:30:18.740","file":"model/init.go:105","msg":"Database connection failed. Database name: db_apiserver","data":{"error":"cannot find local in zip file /usr/local/Cellar/go/1.10.2/libexec/lib/time/zoneinfo.zip"}}
+{"level":"ERROR","timestamp":"2018-10-26 19:30:18.740","file":"model/init.go:105","msg":"Database connection failed. Database name: db_apiserver","data":{"error":"cannot find local in zip file /usr/local/Cellar/go/1.10.2/libexec/lib/time/zoneinfo.zip"}}
+{"level":"INFO","timestamp":"2018-10-26 19:30:18.741","file":"apiserver/main.go:48","msg":"Start to listening the incoming  http address: 6669"}
+{"level":"INFO","timestamp":"2018-10-26 19:30:18.743","file":"sd/check.go:25","msg":"112221212121212"}
+{"level":"INFO","timestamp":"2018-10-26 19:30:18.744","file":"apiserver/main.go:45","msg":"The router has been started successfully"}
+{"level":"INFO","timestamp":"2018-10-26 19:30:53.660","file":"sd/check.go:25","msg":"112221212121212"}
+{"level":"INFO","timestamp":"2018-10-26 19:30:55.610","file":"sd/check.go:25","msg":"112221212121212"}
+{"level":"INFO","timestamp":"2018-10-26 19:30:56.688","file":"sd/check.go:25","msg":"112221212121212"}
+{"level":"INFO","timestamp":"2018-10-26 19:30:57.958","file":"sd/check.go:25","msg":"112221212121212"}
+{"level":"INFO","timestamp":"2018-10-26 19:30:59.816","file":"sd/check.go:25","msg":"112221212121212"}
+{"level":"INFO","timestamp":"2018-10-26 19:32:42.886","file":"config/config.go:77","msg":"Config file changed conf/config.yaml"}
+{"level":"INFO","timestamp":"2018-10-26 19:32:48.103","file":"config/config.go:49","msg":"success config log 222222222222222222log/apiserver.log"}
+{"level":"INFO","timestamp":"2018-10-26 19:32:48.175","file":"apiserver/main.go:48","msg":"Start to listening the incoming  http address: 6669"}
+{"level":"INFO","timestamp":"2018-10-26 19:32:48.176","file":"sd/check.go:25","msg":"112221212121212"}
+{"level":"INFO","timestamp":"2018-10-26 19:32:48.176","file":"apiserver/main.go:45","msg":"The router has been started successfully"}
+{"level":"INFO","timestamp":"2018-10-26 19:33:52.987","file":"config/config.go:49","msg":"success config log 222222222222222222log/apiserver.log"}
+{"level":"INFO","timestamp":"2018-10-26 19:33:53.033","file":"model/init.go:107","msg":"Connect to db successfully!!!!!!!!!!!!"}
+{"level":"INFO","timestamp":"2018-10-26 19:33:53.035","file":"model/init.go:107","msg":"Connect to db successfully!!!!!!!!!!!!"}
+{"level":"INFO","timestamp":"2018-10-26 19:33:53.036","file":"apiserver/main.go:48","msg":"Start to listening the incoming  http address: 6669"}
+{"level":"INFO","timestamp":"2018-10-26 19:33:53.037","file":"sd/check.go:25","msg":"112221212121212"}
+{"level":"INFO","timestamp":"2018-10-26 19:33:53.037","file":"apiserver/main.go:45","msg":"The router has been started successfully"}
+{"level":"INFO","timestamp":"2018-10-26 19:34:08.984","file":"sd/check.go:25","msg":"112221212121212"}
+{"level":"INFO","timestamp":"2018-10-26 19:34:10.763","file":"sd/check.go:25","msg":"112221212121212"}
+{"level":"INFO","timestamp":"2018-10-26 19:34:11.841","file":"sd/check.go:25","msg":"112221212121212"}
+{"level":"INFO","timestamp":"2018-10-26 19:36:12.638","file":"sd/check.go:25","msg":"112221212121212"}
+{"level":"INFO","timestamp":"2018-10-26 19:36:14.617","file":"sd/check.go:25","msg":"112221212121212"}
+{"level":"INFO","timestamp":"2018-10-26 19:37:32.460","file":"config/config.go:49","msg":"success config log 222222222222222222log/apiserver.log"}
+{"level":"INFO","timestamp":"2018-10-26 19:37:32.503","file":"model/init.go:107","msg":"Connect to db successfully!!!!!!!!!!!!"}
+{"level":"INFO","timestamp":"2018-10-26 19:37:32.506","file":"model/init.go:107","msg":"Connect to db successfully!!!!!!!!!!!!"}
+{"level":"INFO","timestamp":"2018-10-26 19:37:32.506","file":"apiserver/main.go:48","msg":"Start to listening the incoming  http address: 6669"}
+{"level":"INFO","timestamp":"2018-10-26 19:37:32.507","file":"sd/check.go:25","msg":"visit health"}
+{"level":"INFO","timestamp":"2018-10-26 19:37:32.511","file":"apiserver/main.go:45","msg":"The router has been started successfully"}
+{"level":"INFO","timestamp":"2018-10-26 19:37:52.246","file":"sd/check.go:25","msg":"visit health"}
+{"level":"INFO","timestamp":"2018-10-26 19:37:57.392","file":"sd/check.go:56","msg":"visit cpu"}
+{"level":"INFO","timestamp":"2018-10-26 20:00:36.500","file":"sd/check.go:56","msg":"visit cpu"}
+{"level":"INFO","timestamp":"2018-10-26 20:00:37.976","file":"sd/check.go:56","msg":"visit cpu"}
+{"level":"INFO","timestamp":"2018-10-26 20:00:39.939","file":"sd/check.go:25","msg":"visit health"}
+{"level":"INFO","timestamp":"2018-10-26 20:00:42.172","file":"sd/check.go:56","msg":"visit cpu"}
+{"level":"INFO","timestamp":"2018-10-26 23:06:08.988","file":"sd/check.go:56","msg":"visit cpu"}
+{"level":"INFO","timestamp":"2018-10-26 23:06:11.436","file":"sd/check.go:56","msg":"visit cpu"}
