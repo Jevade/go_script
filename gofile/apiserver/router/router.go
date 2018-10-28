@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"../handler/sd"
+    "../handler/user"
 	"./middleware"
 	"github.com/gin-gonic/gin"
 )
@@ -19,6 +20,11 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 		c.String(http.StatusNotFound, "The incorrect API route.")
 	})
 
+	u := g.Group("/v1/user")
+    {
+		u.POST("/create", user.Create)
+    }
+
 	svcd := g.Group("/sd")
 	{
 		svcd.GET("/health", sd.HealthCheck)
@@ -26,6 +32,7 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 		svcd.GET("/ram", sd.RAMCheck)
 		svcd.GET("/disk", sd.DiskCheck)
 	}
+
 	return g
 
 }
