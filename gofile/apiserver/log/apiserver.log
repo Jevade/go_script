@@ -89,3 +89,126 @@
 {"level":"INFO","timestamp":"2018-10-26 20:00:42.172","file":"sd/check.go:56","msg":"visit cpu"}
 {"level":"INFO","timestamp":"2018-10-26 23:06:08.988","file":"sd/check.go:56","msg":"visit cpu"}
 {"level":"INFO","timestamp":"2018-10-26 23:06:11.436","file":"sd/check.go:56","msg":"visit cpu"}
+{"level":"INFO","timestamp":"2018-10-29 21:01:11.457","file":"config/config.go:49","msg":"success config log 222222222222222222log/apiserver.log"}
+{"level":"INFO","timestamp":"2018-10-29 21:01:11.515","file":"model/init.go:107","msg":"Connect to db successfully!!!!!!!!!!!!"}
+{"level":"INFO","timestamp":"2018-10-29 21:01:11.516","file":"model/init.go:107","msg":"Connect to db successfully!!!!!!!!!!!!"}
+{"level":"INFO","timestamp":"2018-10-29 21:01:11.517","file":"apiserver/main.go:48","msg":"Start to listening the incoming  http address: 6669"}
+{"level":"INFO","timestamp":"2018-10-29 21:01:11.518","file":"sd/check.go:25","msg":"visit health"}
+{"level":"INFO","timestamp":"2018-10-29 21:01:11.518","file":"apiserver/main.go:45","msg":"The router has been started successfully"}
+{"level":"INFO","timestamp":"2018-10-29 21:23:36.813","file":"user/create.go:16","msg":"Create user"}
+{"level":"DEBUG","timestamp":"2018-10-29 21:23:36.814","file":"user/create.go:28","msg":"Username is: [admin],Password is: [admin]"}
+{"level":"INFO","timestamp":"2018-10-29 21:23:45.196","file":"user/create.go:16","msg":"Create user"}
+{"level":"DEBUG","timestamp":"2018-10-29 21:23:45.196","file":"user/create.go:28","msg":"Username is: [admin],Password is: [123]"}
+{"level":"INFO","timestamp":"2018-10-29 21:23:56.745","file":"user/create.go:16","msg":"Create user"}
+{"level":"DEBUG","timestamp":"2018-10-29 21:23:56.745","file":"user/create.go:28","msg":"Username is: [admin],Password is: [123]"}
+{"level":"INFO","timestamp":"2018-10-29 21:24:01.295","file":"user/create.go:16","msg":"Create user"}
+{"level":"DEBUG","timestamp":"2018-10-29 21:24:01.295","file":"user/create.go:28","msg":"Username is: [admin],Password is: [12345]"}
+{"level":"INFO","timestamp":"2018-10-29 21:31:59.044","file":"user/create.go:16","msg":"Create user"}
+{"level":"DEBUG","timestamp":"2018-10-29 21:31:59.044","file":"user/create.go:28","msg":"Username is: [admin],Password is: []"}
+{"level":"INFO","timestamp":"2018-10-29 21:32:09.927","file":"user/create.go:16","msg":"Create user"}
+{"level":"DEBUG","timestamp":"2018-10-29 21:32:09.927","file":"user/create.go:28","msg":"Username is: [admin],Password is: []"}
+{"level":"INFO","timestamp":"2018-10-29 21:32:19.086","file":"user/create.go:16","msg":"Create user"}
+{"level":"DEBUG","timestamp":"2018-10-29 21:32:19.086","file":"user/create.go:28","msg":"Username is: [],Password is: [123]"}
+{"level":"ERROR","timestamp":"2018-10-29 21:32:19.086","file":"user/create.go:31","msg":"Get an error","data":{"error":"Err - Code: 20102,message: The user was not found This is added message, error: username can't found in db:xx.xx.xx.xx"}}
+{"level":"DEBUG","timestamp":"2018-10-29 21:32:19.086","file":"user/create.go:35","msg":"err type is ErrUserNotFound"}
+{"level":"INFO","timestamp":"2018-10-29 21:32:24.360","file":"user/create.go:16","msg":"Create user"}
+{"level":"DEBUG","timestamp":"2018-10-29 21:32:24.360","file":"user/create.go:28","msg":"Username is: [admin],Password is: []"}
+{"level":"INFO","timestamp":"2018-10-29 21:32:25.983","file":"user/create.go:16","msg":"Create user"}
+{"level":"DEBUG","timestamp":"2018-10-29 21:32:25.983","file":"user/create.go:28","msg":"Username is: [admin],Password is: []"}
+{"level":"INFO","timestamp":"2018-10-29 21:36:56.701","file":"config/config.go:49","msg":"success config log 222222222222222222log/apiserver.log"}
+{"level":"INFO","timestamp":"2018-10-29 21:36:56.707","file":"model/init.go:107","msg":"Connect to db successfully!!!!!!!!!!!!"}
+{"level":"INFO","timestamp":"2018-10-29 21:36:56.710","file":"model/init.go:107","msg":"Connect to db successfully!!!!!!!!!!!!"}
+{"level":"INFO","timestamp":"2018-10-29 21:36:56.710","file":"apiserver/main.go:48","msg":"Start to listening the incoming  http address: 6669"}
+{"level":"INFO","timestamp":"2018-10-29 21:36:56.712","file":"sd/check.go:25","msg":"visit health"}
+{"level":"INFO","timestamp":"2018-10-29 21:36:56.712","file":"apiserver/main.go:45","msg":"The router has been started successfully"}
+{"level":"INFO","timestamp":"2018-10-29 21:37:04.899","file":"user/create.go:23","msg":"Create user"}
+{"level":"DEBUG","timestamp":"2018-10-29 21:37:04.899","file":"user/create.go:35","msg":"Username is: [admin],Password is: []"}
+{"level":"INFO","timestamp":"2018-10-29 21:39:43.697","file":"config/config.go:49","msg":"success config log 222222222222222222log/apiserver.log"}
+{"level":"INFO","timestamp":"2018-10-29 21:39:43.699","file":"model/init.go:107","msg":"Connect to db successfully!!!!!!!!!!!!"}
+{"level":"INFO","timestamp":"2018-10-29 21:39:43.700","file":"model/init.go:107","msg":"Connect to db successfully!!!!!!!!!!!!"}
+{"level":"INFO","timestamp":"2018-10-29 21:39:43.701","file":"apiserver/main.go:48","msg":"Start to listening the incoming  http address: 6669"}
+{"level":"INFO","timestamp":"2018-10-29 21:39:43.701","file":"sd/check.go:25","msg":"visit health"}
+{"level":"INFO","timestamp":"2018-10-29 21:39:43.702","file":"apiserver/main.go:45","msg":"The router has been started successfully"}
+{"level":"INFO","timestamp":"2018-10-29 21:41:34.279","file":"config/config.go:49","msg":"success config log 222222222222222222log/apiserver.log"}
+{"level":"INFO","timestamp":"2018-10-29 21:41:34.281","file":"model/init.go:107","msg":"Connect to db successfully!!!!!!!!!!!!"}
+{"level":"INFO","timestamp":"2018-10-29 21:41:34.282","file":"model/init.go:107","msg":"Connect to db successfully!!!!!!!!!!!!"}
+{"level":"INFO","timestamp":"2018-10-29 21:41:34.293","file":"apiserver/main.go:48","msg":"Start to listening the incoming  http address: 6669"}
+{"level":"INFO","timestamp":"2018-10-29 21:41:34.294","file":"sd/check.go:25","msg":"visit health"}
+{"level":"INFO","timestamp":"2018-10-29 21:41:34.295","file":"apiserver/main.go:45","msg":"The router has been started successfully"}
+{"level":"INFO","timestamp":"2018-10-29 22:55:48.491","file":"config/config.go:49","msg":"success config log 222222222222222222log/apiserver.log"}
+{"level":"INFO","timestamp":"2018-10-29 22:55:48.495","file":"model/init.go:107","msg":"Connect to db successfully!!!!!!!!!!!!"}
+{"level":"INFO","timestamp":"2018-10-29 22:55:48.496","file":"model/init.go:107","msg":"Connect to db successfully!!!!!!!!!!!!"}
+{"level":"INFO","timestamp":"2018-10-29 22:55:48.507","file":"apiserver/main.go:48","msg":"Start to listening the incoming  http address: 6669"}
+{"level":"INFO","timestamp":"2018-10-29 22:55:48.509","file":"sd/check.go:25","msg":"visit health"}
+{"level":"INFO","timestamp":"2018-10-29 22:55:48.509","file":"apiserver/main.go:45","msg":"The router has been started successfully"}
+{"level":"INFO","timestamp":"2018-10-29 22:56:54.391","file":"config/config.go:49","msg":"success config log 222222222222222222log/apiserver.log"}
+{"level":"INFO","timestamp":"2018-10-29 22:56:54.393","file":"model/init.go:107","msg":"Connect to db successfully!!!!!!!!!!!!"}
+{"level":"INFO","timestamp":"2018-10-29 22:56:54.394","file":"model/init.go:107","msg":"Connect to db successfully!!!!!!!!!!!!"}
+{"level":"INFO","timestamp":"2018-10-29 22:56:54.395","file":"apiserver/main.go:48","msg":"Start to listening the incoming  http address: 6669"}
+{"level":"INFO","timestamp":"2018-10-29 22:56:54.396","file":"sd/check.go:25","msg":"visit health"}
+{"level":"INFO","timestamp":"2018-10-29 22:56:54.397","file":"apiserver/main.go:45","msg":"The router has been started successfully"}
+{"level":"INFO","timestamp":"2018-10-29 22:58:10.198","file":"config/config.go:49","msg":"success config log 222222222222222222log/apiserver.log"}
+{"level":"INFO","timestamp":"2018-10-29 22:58:10.200","file":"model/init.go:107","msg":"Connect to db successfully!!!!!!!!!!!!"}
+{"level":"INFO","timestamp":"2018-10-29 22:58:10.202","file":"model/init.go:107","msg":"Connect to db successfully!!!!!!!!!!!!"}
+{"level":"INFO","timestamp":"2018-10-29 22:58:10.219","file":"apiserver/main.go:48","msg":"Start to listening the incoming  http address: 6669"}
+{"level":"INFO","timestamp":"2018-10-29 22:58:10.220","file":"sd/check.go:25","msg":"visit health"}
+{"level":"INFO","timestamp":"2018-10-29 22:58:10.220","file":"apiserver/main.go:45","msg":"The router has been started successfully"}
+{"level":"INFO","timestamp":"2018-10-29 22:58:41.580","file":"config/config.go:49","msg":"success config log 222222222222222222log/apiserver.log"}
+{"level":"INFO","timestamp":"2018-10-29 22:58:41.582","file":"model/init.go:107","msg":"Connect to db successfully!!!!!!!!!!!!"}
+{"level":"INFO","timestamp":"2018-10-29 22:58:41.583","file":"model/init.go:107","msg":"Connect to db successfully!!!!!!!!!!!!"}
+{"level":"INFO","timestamp":"2018-10-29 22:58:41.584","file":"apiserver/main.go:48","msg":"Start to listening the incoming  http address: 6669"}
+{"level":"INFO","timestamp":"2018-10-29 22:58:41.585","file":"sd/check.go:25","msg":"visit health"}
+{"level":"INFO","timestamp":"2018-10-29 22:58:41.585","file":"apiserver/main.go:45","msg":"The router has been started successfully"}
+{"level":"INFO","timestamp":"2018-10-29 22:59:55.837","file":"user/create.go:24","msg":"Create user"}
+{"level":"INFO","timestamp":"2018-10-29 22:59:55.837","file":"user/create.go:33","msg":"URL username is: admin2"}
+{"level":"INFO","timestamp":"2018-10-29 22:59:55.837","file":"user/create.go:36","msg":"URL key param desc is: test"}
+{"level":"INFO","timestamp":"2018-10-29 22:59:55.837","file":"user/create.go:39","msg":"Header Content-Type is: application/json"}
+{"level":"DEBUG","timestamp":"2018-10-29 22:59:55.837","file":"user/create.go:41","msg":"Username is: [admin],Password is: [admin]"}
+{"level":"INFO","timestamp":"2018-10-29 23:00:29.565","file":"user/create.go:24","msg":"Create user"}
+{"level":"INFO","timestamp":"2018-10-29 23:00:29.565","file":"user/create.go:33","msg":"URL username is: admin2"}
+{"level":"INFO","timestamp":"2018-10-29 23:00:29.565","file":"user/create.go:36","msg":"URL key param desc is: 123"}
+{"level":"INFO","timestamp":"2018-10-29 23:00:29.565","file":"user/create.go:39","msg":"Header Content-Type is: application/json"}
+{"level":"DEBUG","timestamp":"2018-10-29 23:00:29.565","file":"user/create.go:41","msg":"Username is: [admin],Password is: []"}
+{"level":"INFO","timestamp":"2018-10-29 23:01:12.969","file":"user/create.go:24","msg":"Create user"}
+{"level":"INFO","timestamp":"2018-10-29 23:01:12.969","file":"user/create.go:33","msg":"URL username is: admin2"}
+{"level":"INFO","timestamp":"2018-10-29 23:01:12.969","file":"user/create.go:36","msg":"URL key param desc is: 123"}
+{"level":"INFO","timestamp":"2018-10-29 23:01:12.969","file":"user/create.go:39","msg":"Header Content-Type is: application/json"}
+{"level":"DEBUG","timestamp":"2018-10-29 23:01:12.969","file":"user/create.go:41","msg":"Username is: [admin],Password is: []"}
+{"level":"INFO","timestamp":"2018-10-29 23:01:21.446","file":"user/create.go:24","msg":"Create user"}
+{"level":"INFO","timestamp":"2018-10-29 23:01:21.446","file":"user/create.go:33","msg":"URL username is: admin2"}
+{"level":"INFO","timestamp":"2018-10-29 23:01:21.447","file":"user/create.go:36","msg":"URL key param desc is: 123"}
+{"level":"INFO","timestamp":"2018-10-29 23:01:21.447","file":"user/create.go:39","msg":"Header Content-Type is: application/json"}
+{"level":"DEBUG","timestamp":"2018-10-29 23:01:21.447","file":"user/create.go:41","msg":"Username is: [admin],Password is: [123]"}
+{"level":"INFO","timestamp":"2018-10-29 23:06:53.301","file":"config/config.go:49","msg":"success config log 222222222222222222log/apiserver.log"}
+{"level":"INFO","timestamp":"2018-10-29 23:06:53.303","file":"model/init.go:107","msg":"Connect to db successfully!!!!!!!!!!!!"}
+{"level":"INFO","timestamp":"2018-10-29 23:06:53.304","file":"model/init.go:107","msg":"Connect to db successfully!!!!!!!!!!!!"}
+{"level":"INFO","timestamp":"2018-10-29 23:06:53.305","file":"apiserver/main.go:48","msg":"Start to listening the incoming  http address: 6669"}
+{"level":"INFO","timestamp":"2018-10-29 23:06:53.306","file":"sd/check.go:25","msg":"visit health"}
+{"level":"INFO","timestamp":"2018-10-29 23:06:53.306","file":"apiserver/main.go:45","msg":"The router has been started successfully"}
+{"level":"INFO","timestamp":"2018-10-29 23:08:30.238","file":"config/config.go:49","msg":"success config log 222222222222222222log/apiserver.log"}
+{"level":"INFO","timestamp":"2018-10-29 23:08:30.240","file":"model/init.go:107","msg":"Connect to db successfully!!!!!!!!!!!!"}
+{"level":"INFO","timestamp":"2018-10-29 23:08:30.241","file":"model/init.go:107","msg":"Connect to db successfully!!!!!!!!!!!!"}
+{"level":"INFO","timestamp":"2018-10-29 23:08:30.242","file":"apiserver/main.go:48","msg":"Start to listening the incoming  http address: 6669"}
+{"level":"INFO","timestamp":"2018-10-29 23:08:30.243","file":"sd/check.go:25","msg":"visit health"}
+{"level":"INFO","timestamp":"2018-10-29 23:08:30.243","file":"apiserver/main.go:45","msg":"The router has been started successfully"}
+{"level":"INFO","timestamp":"2018-10-29 23:08:45.800","file":"user/create.go:23","msg":"Create user"}
+{"level":"INFO","timestamp":"2018-10-29 23:08:45.801","file":"user/create.go:32","msg":"URL username is: admin2"}
+{"level":"INFO","timestamp":"2018-10-29 23:08:45.801","file":"user/create.go:35","msg":"URL key param desc is: 123"}
+{"level":"INFO","timestamp":"2018-10-29 23:08:45.801","file":"user/create.go:38","msg":"Header Content-Type is: application/json"}
+{"level":"DEBUG","timestamp":"2018-10-29 23:08:45.801","file":"user/create.go:40","msg":"Username is: [admin],Password is: []"}
+{"level":"INFO","timestamp":"2018-10-29 23:09:19.660","file":"config/config.go:49","msg":"success config log 222222222222222222log/apiserver.log"}
+{"level":"INFO","timestamp":"2018-10-29 23:09:19.662","file":"model/init.go:107","msg":"Connect to db successfully!!!!!!!!!!!!"}
+{"level":"INFO","timestamp":"2018-10-29 23:09:19.663","file":"model/init.go:107","msg":"Connect to db successfully!!!!!!!!!!!!"}
+{"level":"INFO","timestamp":"2018-10-29 23:09:19.677","file":"apiserver/main.go:48","msg":"Start to listening the incoming  http address: 6669"}
+{"level":"INFO","timestamp":"2018-10-29 23:09:19.678","file":"sd/check.go:25","msg":"visit health"}
+{"level":"INFO","timestamp":"2018-10-29 23:09:19.679","file":"apiserver/main.go:45","msg":"The router has been started successfully"}
+{"level":"INFO","timestamp":"2018-10-29 23:09:22.445","file":"user/create.go:23","msg":"Create user"}
+{"level":"INFO","timestamp":"2018-10-29 23:09:22.446","file":"user/create.go:32","msg":"URL username is: admin2"}
+{"level":"INFO","timestamp":"2018-10-29 23:09:22.446","file":"user/create.go:35","msg":"URL key param desc is: 123"}
+{"level":"INFO","timestamp":"2018-10-29 23:09:22.446","file":"user/create.go:38","msg":"Header Content-Type is: application/json"}
+{"level":"DEBUG","timestamp":"2018-10-29 23:09:22.446","file":"user/create.go:40","msg":"Username is: [admin],Password is: []"}
+{"level":"INFO","timestamp":"2018-10-29 23:09:34.609","file":"user/create.go:23","msg":"Create user"}
+{"level":"INFO","timestamp":"2018-10-29 23:09:34.609","file":"user/create.go:32","msg":"URL username is: admin2"}
+{"level":"INFO","timestamp":"2018-10-29 23:09:34.609","file":"user/create.go:35","msg":"URL key param desc is: 123"}
+{"level":"INFO","timestamp":"2018-10-29 23:09:34.609","file":"user/create.go:38","msg":"Header Content-Type is: application/json"}
+{"level":"DEBUG","timestamp":"2018-10-29 23:09:34.609","file":"user/create.go:40","msg":"Username is: [admin],Password is: [123]"}

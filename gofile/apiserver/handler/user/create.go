@@ -1,44 +1,57 @@
 package user
 
 import (
-    "fmt"
-    "net/http"
-    "github.com/lexkong/log"
+	"fmt"
+
 	"github.com/gin-gonic/gin"
-    //"github.com/spf13/viper"
-    //"../../model"
-    "../../pkg/errno"
+	"github.com/lexkong/log"
+
+	//"github.com/spf13/viper"
+	//"../../model"
+	"../../handler"
+	"../../pkg/errno"
 )
 
+//Info return info
+func Info(c *gin.Context) {
+	username := c.Param("username")
+	handler.SendResponse(c, nil, CreateResponse{Username: username})
+}
 
-//Create is check health
+//Create is to create user
 func Create(c *gin.Context) {
 	log.Info("Create user")
-    var r struct{
-        Username string `json:"username"`
-        Password string `json:"password"`
-    }
 
-    var err error
-    if err = c.Bind(&r);err!=nil{
-        c.JSON(http.StatusOK,gin.H{"error":errno.ErrBind})
-        return
-    }
+	var r CreateRequest
+	if err := c.Bind(&r); err != nil {
+		handler.SendResponse(c, errno.ErrBind, nil)
+		return
+	}
 
-    log.Debugf("Username is: [%s],Password is: [%s]",r.Username,r.Password)
-    if r.Username==""{
-        err = errno.New(errno.ErrUserNotFound,fmt.Errorf("username can't found in db:xx.xx.xx.xx")).Add("This is added message")
-        log.Errorf(err,"Get an error")
-    }
+	admin2 := c.Param("username")
+	log.Infof("URL username is: %s", admin2)
 
-    if errno.IsErrUserNotFound(err){
-        log.Debug("err type is ErrUserNotFound")
-    }
+	desc := c.Query("desc")
+	log.Infof("URL key param desc is: %s", desc)
 
-    if r.Password ==""{
-        err=fmt.Errorf("Password is empty")
-    }
+	contentType := c.GetHeader("Content-Type")
+	log.Infof("Header Content-Type is: %s", contentType)
 
-    code, message := errno.DecodeErr(err)
-    c.JSON(http.StatusOK,gin.H{"code":code,"message":message})
+	log.Debugf("Username is: [%s],Password is: [%s]", r.Username, r.Password)
+	if r.Username == "" {
+		handler.SendResponse(c, errno.New(errno.ErrUserNotFound, fmt.Errorf("username can't found in db:xx.xx.xx.xx")).Add("This is added message"), nil)
+		return
+	}
+
+	if r.Password == "" {
+		handler.SendResponse(c, fmt.Errorf("Password is empty"), nil)
+		return
+	}
+
+	rsp := CreateResponse{
+		Username: r.Username,
+	}
+
+	handler.SendResponse(c, nil, rsp)
+
 }

@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"../handler/sd"
-    "../handler/user"
+	"../handler/user"
 	"./middleware"
 	"github.com/gin-gonic/gin"
 )
@@ -21,9 +21,10 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 	})
 
 	u := g.Group("/v1/user")
-    {
-		u.POST("/create", user.Create)
-    }
+	{
+		u.POST("/:username", user.Create)
+		u.GET("/:username", user.Info)
+	}
 
 	svcd := g.Group("/sd")
 	{
