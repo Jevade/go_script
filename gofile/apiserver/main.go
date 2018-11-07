@@ -20,15 +20,27 @@ import (
 )
 
 var (
-	cfg     = pflag.StringP("config", "c", "", "apiserver config files path")
-	version = pflag.BoolP("version", "v", false, "show version info")
+	cfg          = pflag.StringP("config", "c", "", "apiserver config files path")
+	version      = pflag.BoolP("version", "v", false, "show version info")
+	xyz          string
+	gitTag       string
+	gitCommit    string = "$:%H$"
+	gitTreeState string = "not a git tree"
+	buildDate    string = "1970-01-01T00:00:00Z"
 )
 
 func main() {
+	fmt.Println(xyz)
+	v.PrintStr()
 	//读取配置文件，初始化链接选项
 	pflag.Parse()
 	if *version {
 		v := v.Get()
+		v.GitTag = gitTag
+		v.GitCommit = gitCommit
+		v.GitTreeState = gitTreeState
+		v.BuildDate = buildDate
+
 		marshalled, err := json.MarshalIndent(&v, "", " ")
 		if err != nil {
 			fmt.Printf("%v\n", err)

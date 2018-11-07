@@ -21,10 +21,14 @@ func (info *Info) String() string {
 	return info.GitTag
 }
 
+func PrintStr() {
+	fmt.Println(GitTag)
+}
+
 //Get is
 func Get() Info {
 	return Info{
-		GitTag:       gitTag,
+		GitTag:       GitTag,
 		GitCommit:    gitCommit,
 		GitTreeState: gitTreeState,
 		BuildDate:    buildDate,
