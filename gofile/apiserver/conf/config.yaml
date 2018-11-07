@@ -5,6 +5,7 @@ url                : http://127.0.0.1:6669
 max_ping_count     : 10
 gorm_max_conns     : 0
 gormlog            : true
+jwt_secret         : hiqwejkanjheqwejwqmesajewqe
 log:
   writers          : file,stdout
   logger_level     : DEBUG 
@@ -33,3 +34,8 @@ docker_db:
   parseTime        : true
   local            : Local
 
+tls:
+  addr             : 8081
+  cert             : "conf/server.crt"
+  key              : "conf/server.key" 
+  url              : http://127.0.0.1:8081

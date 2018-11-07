@@ -1,14 +1,13 @@
 package user
 
 import (
-	"fmt"
-
 	"github.com/gin-gonic/gin"
 	"github.com/lexkong/log"
 
 	//"github.com/spf13/viper"
 	//"../../model"
 	"../../handler"
+	"../../model"
 	"../../pkg/errno"
 )
 
@@ -18,33 +17,46 @@ func Info(c *gin.Context) {
 	handler.SendResponse(c, nil, CreateResponse{Username: username})
 }
 
-//Create is to create user
+// @Summary Add new user to the database
+// @Description Add a new user
+// @Tags user
+// @Accept  json
+// @Produce  json
+// @Param user body user.CreateRequest true "Create a new user"
+// @Success 200 {object} user.CreateResponse "{"code":0,"message":"OK","data":{"username":"kong"}}"
+// @Router /user [post]
 func Create(c *gin.Context) {
 	log.Info("Create user")
 
 	var r CreateRequest
+
 	if err := c.Bind(&r); err != nil {
 		handler.SendResponse(c, errno.ErrBind, nil)
 		return
 	}
 
-	admin2 := c.Param("username")
-	log.Infof("URL username is: %s", admin2)
-
-	desc := c.Query("desc")
-	log.Infof("URL key param desc is: %s", desc)
-
-	contentType := c.GetHeader("Content-Type")
-	log.Infof("Header Content-Type is: %s", contentType)
-
-	log.Debugf("Username is: [%s],Password is: [%s]", r.Username, r.Password)
-	if r.Username == "" {
-		handler.SendResponse(c, errno.New(errno.ErrUserNotFound, fmt.Errorf("username can't found in db:xx.xx.xx.xx")).Add("This is added message"), nil)
+	log.Debugf("Username is: [%s]", r.Username)
+	if err := r.checkParam(); err != nil {
+		handler.SendResponse(c, err, nil)
 		return
 	}
 
-	if r.Password == "" {
-		handler.SendResponse(c, fmt.Errorf("Password is empty"), nil)
+	u := model.UserModel{
+		Username: r.Username,
+		Password: r.Password,
+	}
+	if err := u.Validate(); err != nil {
+		handler.SendResponse(c, errno.ErrValidation, nil)
+		return
+	}
+
+	if err := u.Encrypt(); err != nil {
+		handler.SendResponse(c, errno.ErrEncrypt, nil)
+		return
+	}
+
+	if err := u.Create(); err != nil {
+		handler.SendResponse(c, errno.ErrDatabase, nil)
 		return
 	}
 
@@ -53,5 +65,4 @@ func Create(c *gin.Context) {
 	}
 
 	handler.SendResponse(c, nil, rsp)
-
 }

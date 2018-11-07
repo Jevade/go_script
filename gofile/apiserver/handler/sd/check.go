@@ -23,7 +23,7 @@ const (
 //HealthCheck is check health
 func HealthCheck(c *gin.Context) {
 	log.Info("visit health")
-	message := fmt.Sprintf("the status is %s","ok")
+	message := fmt.Sprintf("the status is %s", "ok")
 	c.String(http.StatusOK, message)
 }
 
@@ -47,7 +47,7 @@ func DiskCheck(c *gin.Context) {
 		status = http.StatusTooManyRequests
 		text = "WARNING"
 	}
-	message := fmt.Sprintf("%s - Free Space:%dMB (%dGB)/%dMB (%dGB)|Used:  %d%", text, usedMB, usedGB, totalMB, totalGB, usedPercent)
+	message := fmt.Sprintf("%s - Free Space:%dMB (%dGB)/%dMB (%dGB)|Used:  %d", text, usedMB, usedGB, totalMB, totalGB, usedPercent)
 	c.String(status, message)
 }
 
@@ -95,6 +95,6 @@ func RAMCheck(c *gin.Context) {
 		status = http.StatusTooManyRequests
 		text = "WARNING"
 	}
-	message := fmt.Sprintf("%s - Free Memory:%dMB (%dGB)/%dMB (%dGB)|Used:  %d%", text, usedMB, usedGB, totalMB, totalGB, usedPercent)
+	message := fmt.Sprintf("%s - Free Memory:%dMB (%dGB)/%dMB (%dGB)|Used:  %d", text, usedMB, usedGB, totalMB, totalGB, usedPercent)
 	c.String(status, message)
 }
