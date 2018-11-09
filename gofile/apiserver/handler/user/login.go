@@ -13,6 +13,7 @@ import (
 
 //Login is to login user
 // @Summary Login generates the authentication token
+// @Tags user
 // @Produce  json
 // @Param username body string true "Username"
 // @Param password body string true "Password"
