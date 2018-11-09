@@ -15,7 +15,8 @@ all: gotool
 clean:
 	rm -f apiserver
 	find . -name "[._]*.s[a-w][a-z]" | xargs rm -f {}
-gotool:
+gotool:doc
+	@echo "Formating and make code"
 	gofmt -w .
 	go tool vet .|	grep -v vendor;true
 ca:
@@ -25,4 +26,7 @@ help:
 	@echo "make clean - remove binary file and vim swp files"
 	@echo "make gotool - run go tool 'fmt' and 'vet'"
 	@echo "make ca - generate ssl cert and key"
-.PHONY: clean gotool ca help
+doc:
+	@echo "Generate swagger api doc"
+	swag init 
+.PHONY: clean gotool ca doc help
