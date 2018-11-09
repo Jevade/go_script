@@ -3,6 +3,8 @@ package router
 import (
 	"net/http"
 
+	"github.com/gin-contrib/pprof"
+
 	"github.com/swaggo/gin-swagger"
 	"github.com/swaggo/gin-swagger/swaggerFiles"
 
@@ -15,6 +17,7 @@ import (
 
 //Load load middlerware,rouer,handles
 func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
+	pprof.Register(g)
 	g.Use(gin.Recovery())
 	g.Use(middleware.NoCache)
 	g.Use(middleware.Option)

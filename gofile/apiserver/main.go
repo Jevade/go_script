@@ -20,8 +20,10 @@ import (
 )
 
 var (
-	cfg          = pflag.StringP("config", "c", "", "apiserver config files path")
-	version      = pflag.BoolP("version", "v", false, "show version info")
+	cfg     = pflag.StringP("config", "c", "", "apiserver config files path")
+	version = pflag.BoolP("version", "v", false, "show version info")
+	help    = pflag.StringP("help", "h", "", "apiserver help info")
+
 	gitTag       = ""
 	gitCommit    = "$:%H$"
 	gitTreeState = "not a git tree"
@@ -31,6 +33,11 @@ var (
 func main() {
 	//读取配置文件，初始化链接选项
 	pflag.Parse()
+	if *help == "v" || *help == "version" {
+		fmt.Println("-h --help apiserver help info")
+		fmt.Println("-c --config apiserver config yaml/json")
+		fmt.Println("-v --version apiserver versions")
+	}
 	if *version {
 		v := v.Get()
 		v.GitTag = gitTag
@@ -60,7 +67,7 @@ func main() {
 	//定义需要载入的全局中间件
 	globalmiddlerwares := []gin.HandlerFunc{
 		middleware.RequestID(),
-		middleware.Logging(),
+		// middleware.Logging(),
 	}
 
 	router.Load(
