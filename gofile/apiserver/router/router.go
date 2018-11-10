@@ -3,8 +3,12 @@ package router
 import (
 	"net/http"
 
+	"github.com/swaggo/gin-swagger"
+	"github.com/swaggo/gin-swagger/swaggerFiles"
+
+	_ "../docs"
 	"../handler/sd"
-    "../handler/user"
+	"../handler/user"
 	"./middleware"
 	"github.com/gin-gonic/gin"
 )
@@ -19,11 +23,20 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 	g.NoRoute(func(c *gin.Context) {
 		c.String(http.StatusNotFound, "The incorrect API route.")
 	})
+	// swagger api docs
+	g.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+
+	g.POST("/login", user.Login)
 
 	u := g.Group("/v1/user")
-    {
-		u.POST("/create", user.Create)
-    }
+	// u.Use(middleware.AuthMiddleware())
+	{
+		u.POST("", user.Create)
+		u.DELETE("/:id", user.Delete)
+		u.PUT("/:id", user.Update)
+		u.GET("", user.GetList)
+		u.GET("/:username", user.Get)
+	}
 
 	svcd := g.Group("/sd")
 	{
@@ -32,7 +45,6 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 		svcd.GET("/ram", sd.RAMCheck)
 		svcd.GET("/disk", sd.DiskCheck)
 	}
-
 	return g
 
 }

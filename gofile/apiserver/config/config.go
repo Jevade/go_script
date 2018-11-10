@@ -56,9 +56,8 @@ func (c *Config) initConfig() error {
 		viper.SetConfigFile(c.Name)
 		viper.SetConfigType(ns[1])
 	} else {
-		viper.AddConfigPath("conf")
-		viper.SetConfigName("config")
-		viper.SetConfigType("json")
+		viper.SetConfigFile("conf/config.yaml")
+		viper.SetConfigType("yaml")
 	}
 
 	viper.AutomaticEnv()
