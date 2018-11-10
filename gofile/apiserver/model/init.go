@@ -112,6 +112,6 @@ func openDB(dbConfig *DBConfig) *gorm.DB {
 //setupDB set some db property with config file
 func setupDB(db *gorm.DB) {
 	db.LogMode(viper.GetBool("gormlog"))
-	db.DB().SetMaxOpenConns(viper.GetInt("gorm_max_conns")) //最大连接数
-	db.DB().SetMaxIdleConns(0)                              //限制连接数，放入连接池中，下一次使用
+	//db.DB().SetMaxOpenConns(viper.GetInt("gorm_max_conns")) //最大连接数
+//	db.DB().SetMaxIdleConns(0)                              //限制连接数，放入连接池中，下一次使用
 }
