@@ -13,5 +13,5 @@ func init() {
 }
 
 func main() {
-	search.Run("apple")
+	search.Run("sex")
 }
