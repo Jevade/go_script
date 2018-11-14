@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"os"
 
@@ -14,7 +13,5 @@ func init() {
 }
 
 func main() {
-	search.Run("Xijin")
-	fmt.Println("12333")
-	log.Println(123)
+	search.Run("apple")
 }

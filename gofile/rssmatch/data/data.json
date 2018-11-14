@@ -1,0 +1,12 @@
+[
+    {
+       "site":"cnn",
+        "link":"http://rss.cnn.com/rss/cnn_world.rss",
+        "type":"rss"   
+    },
+    {
+        "site":"cnn",
+        "link":"",
+        "type":""   
+    } 
+]
