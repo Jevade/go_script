@@ -3,6 +3,7 @@ package matchers
 import (
 	"encoding/xml"
 	"errors"
+	"fmt"
 	"log"
 	"net/http"
 	"regexp"
@@ -11,6 +12,7 @@ import (
 )
 
 type rssMatcher struct{}
+
 type (
 	item struct {
 		XMLName     xml.Name `xml:"item"`
@@ -22,18 +24,18 @@ type (
 		GeoRssPoint string   `xml:"georss:point"`
 	}
 	image struct {
-		XMLName xml.Name `xml:"item"`
+		XMLName xml.Name `xml:"image"`
 		URL     string   `xml:"url"`
 		Title   string   `xml:"title"`
 		Link    string   `xml:"link"`
 	}
 	channel struct {
-		XMLName        xml.Name `xml:"item"`
-		PubDate        string   `xml:"pubDate"`
+		XMLName        xml.Name `xml:"channel"`
 		Title          string   `xml:"title"`
 		Description    string   `xml:"description"`
 		Link           string   `xml:"link"`
-		LastBuildDate  string   `xml:"lastbuilddate"`
+		PubDate        string   `xml:"pubDate"`
+		LastBuildDate  string   `xml:"lastBuildDate"`
 		TTL            string   `xml:"ttl"`
 		Language       string   `xml:"language"`
 		ManagingEditor string   `xml:"managingEditor"`
@@ -59,6 +61,7 @@ func (matcher rssMatcher) Search(feed *search.Feed, itemString string) ([]*searc
 		return rssResults, err
 	}
 	for _, channelItem := range document.Channel.Item {
+		fmt.Println(channelItem.Title)
 		matched, err := regexp.MatchString(itemString, channelItem.Title)
 		if err != nil {
 			return nil, err
