@@ -2,10 +2,14 @@ package main
 
 import (
 	"fmt"
+	"io"
 	"log"
+	"math/rand"
 	"os"
+	"sync"
 	"time"
 
+	"./pool"
 	"./runner"
 )
 
@@ -45,9 +49,65 @@ func createTask() func(int) {
 	}
 }
 
-var length = 5
+const (
+	maxGoroutines  = 25
+	pooledResource = 8
+	length         = 5
+)
+
+type dbConnection struct {
+	ID uint
+}
 
 func main() {
+	// CurlTest()
+	PoolTest()
+	// RunnerTest()
+}
+
+var idCounter uint
+
+func (conn dbConnection) Close() error {
+	log.Printf("dbconection #%d closed", conn.ID)
+	return nil
+}
+func createConnection() (io.Closer, error) {
+	defer func() { idCounter++ }()
+	return dbConnection{
+		ID: idCounter,
+	}, nil
+}
+func PoolTest() {
+	var wg sync.WaitGroup
+	wg.Add(maxGoroutines)
+
+	p, err := pool.New(createConnection, pooledResource)
+	if err != nil {
+		log.Println("Create pool failed")
+		return
+	}
+	for query := 0; query < maxGoroutines; query++ {
+		go func(q int) {
+			performQuerys(p, q)
+			wg.Done()
+		}(query)
+	}
+	wg.Wait()
+	p.Close()
+
+}
+func performQuerys(p *pool.Pool, query int) {
+	r, err := p.Acquire()
+	if err != nil {
+		log.Println("Acquire resource failed")
+	}
+	defer p.Release(*r)
+	time.Sleep(time.Duration(rand.Intn(100000)) * time.Millisecond)
+	log.Printf("QID[%d], CID[%d]\n", query, (*r).(dbConnection).ID)
+
+}
+
+func RunnerTest() {
 	newRunner := runner.New(time.Second * 200)
 	go func() {
 		for id := 0; id < length; id++ {
