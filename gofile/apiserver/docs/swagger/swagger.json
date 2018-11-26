@@ -15,6 +15,9 @@
                 "produces": [
                     "application/json"
                 ],
+                "tags": [
+                    "user"
+                ],
                 "summary": "Login generates the authentication token",
                 "parameters": [
                     {
@@ -46,7 +49,121 @@
                 }
             }
         },
-        "/user": {
+        "/sd/cpu": {
+            "get": {
+                "description": "check cpu health",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "sd"
+                ],
+                "summary": "Check cpu health",
+                "responses": {
+                    "200": {},
+                    "429": {
+                        "description": "{\"Code\":429,\"Message\":\"Source busy\"}",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/httputil.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "{\"Code\":500,\"Message\":\"Source used up\"}",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/httputil.HTTPError"
+                        }
+                    }
+                }
+            }
+        },
+        "/sd/disk": {
+            "get": {
+                "description": "check disk health",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "sd"
+                ],
+                "summary": "Check disk health",
+                "responses": {
+                    "200": {},
+                    "429": {
+                        "description": "{\"Code\":429,\"Message\":\"Source busy\"}",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/httputil.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "{\"Code\":500,\"Message\":\"Source used up\"}",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/httputil.HTTPError"
+                        }
+                    }
+                }
+            }
+        },
+        "/sd/health": {
+            "get": {
+                "description": "check node health",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "sd"
+                ],
+                "summary": "Check node health",
+                "responses": {
+                    "200": {}
+                }
+            }
+        },
+        "/sd/ram": {
+            "get": {
+                "description": "check ram health",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "sd"
+                ],
+                "summary": "Check ram health",
+                "responses": {
+                    "200": {},
+                    "429": {
+                        "description": "{\"Code\":429,\"Message\":\"Source busy\"}",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/httputil.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "{\"Code\":500,\"Message\":\"Source used up\"}",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/httputil.HTTPError"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/user": {
             "get": {
                 "description": "List users",
                 "consumes": [
@@ -61,14 +178,22 @@
                 "summary": "List the users in the database",
                 "parameters": [
                     {
-                        "description": "List users",
-                        "name": "user",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "type": "object",
-                            "$ref": "#/definitions/user.ListRequest"
-                        }
+                        "type": "string",
+                        "description": "name search",
+                        "name": "username",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "search limit",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "serach offset",
+                        "name": "offset",
+                        "in": "query"
                     }
                 ],
                 "responses": {
@@ -110,7 +235,7 @@
                 }
             }
         },
-        "/user/{id}": {
+        "/v1/user/{id}": {
             "put": {
                 "description": "Update a user by ID",
                 "consumes": [
@@ -184,7 +309,7 @@
                 }
             }
         },
-        "/user/{username}": {
+        "/v1/user/{username}": {
             "get": {
                 "description": "Get an user by username",
                 "consumes": [
@@ -233,6 +358,19 @@
                 }
             }
         },
+        "httputil.HTTPError": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "example": 400
+                },
+                "message": {
+                    "type": "string",
+                    "example": "status bad request"
+                }
+            }
+        },
         "model.UserModel": {
             "type": "object",
             "required": [
@@ -262,20 +400,6 @@
         "user.CreateResponse": {
             "type": "object",
             "properties": {
-                "username": {
-                    "type": "string"
-                }
-            }
-        },
-        "user.ListRequest": {
-            "type": "object",
-            "properties": {
-                "limit": {
-                    "type": "integer"
-                },
-                "offset": {
-                    "type": "integer"
-                },
                 "username": {
                     "type": "string"
                 }

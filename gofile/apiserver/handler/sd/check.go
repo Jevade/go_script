@@ -11,6 +11,7 @@ import (
 	"github.com/shirou/gopsutil/disk"
 	"github.com/shirou/gopsutil/load"
 	"github.com/shirou/gopsutil/mem"
+	_ "github.com/swaggo/swag/example/celler/httputil"
 )
 
 const (
@@ -21,13 +22,29 @@ const (
 )
 
 //HealthCheck is check health
+// @Summary Check node health
+// @Description check node health
+// @Tags sd
+// @Accept  json
+// @Produce  json
+// @Success 200
+// @Router /sd/health [get]
 func HealthCheck(c *gin.Context) {
 	log.Info("visit health")
 	message := fmt.Sprintf("the status is %s", "ok")
-	c.String(http.StatusOK, message)
+	c.JSON(http.StatusOK, message)
 }
 
 //DiskCheck is to check disk
+// @Summary Check disk health
+// @Description check disk health
+// @Tags sd
+// @Accept  json
+// @Produce  json
+// @Success 200
+// @Failure 429 {object} httputil.HTTPError "{"Code":429,"Message":"Source busy"}"
+// @Failure 500 {object} httputil.HTTPError "{"Code":500,"Message":"Source used up"}"
+// @Router /sd/disk [get]
 func DiskCheck(c *gin.Context) {
 	log.Info("visit disk")
 	u, _ := disk.Usage("/")
@@ -48,10 +65,19 @@ func DiskCheck(c *gin.Context) {
 		text = "WARNING"
 	}
 	message := fmt.Sprintf("%s - Free Space:%dMB (%dGB)/%dMB (%dGB)|Used:  %d", text, usedMB, usedGB, totalMB, totalGB, usedPercent)
-	c.String(status, message)
+	c.JSON(status, message)
 }
 
 //CPUCheck is to check CPU
+// @Summary Check cpu health
+// @Description check cpu health
+// @Tags sd
+// @Accept  json
+// @Produce  json
+// @Success 200
+// @Failure 429 {object} httputil.HTTPError "{"Code":429,"Message":"Source busy"}"
+// @Failure 500 {object} httputil.HTTPError "{"Code":500,"Message":"Source used up"}"
+// @Router /sd/cpu [get]
 func CPUCheck(c *gin.Context) {
 	log.Info("visit cpu")
 	test, _ := cpu.Counts(true)
@@ -71,11 +97,20 @@ func CPUCheck(c *gin.Context) {
 		text = "WARNING"
 	}
 	message := fmt.Sprintf("%s - Load average: %.2f, %.2f, %.2f ,test:%d| Cores: %d", text, l1, l5, l15, cores, test)
-	c.String(status, message)
+	c.JSON(status, message)
 
 }
 
 //RAMCheck is to check ram
+// @Summary Check ram health
+// @Description check ram health
+// @Tags sd
+// @Accept  json
+// @Produce  json
+// @Success 200
+// @Failure 429 {object} httputil.HTTPError "{"Code":429,"Message":"Source busy"}"
+// @Failure 500 {object} httputil.HTTPError "{"Code":500,"Message":"Source used up"}"
+// @Router /sd/ram [get]
 func RAMCheck(c *gin.Context) {
 	log.Info("visit ram")
 	u, _ := mem.VirtualMemory()
@@ -96,5 +131,5 @@ func RAMCheck(c *gin.Context) {
 		text = "WARNING"
 	}
 	message := fmt.Sprintf("%s - Free Memory:%dMB (%dGB)/%dMB (%dGB)|Used:  %d", text, usedMB, usedGB, totalMB, totalGB, usedPercent)
-	c.String(status, message)
+	c.JSON(status, message)
 }

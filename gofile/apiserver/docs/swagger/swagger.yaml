@@ -9,6 +9,15 @@ definitions:
       message:
         type: string
     type: object
+  httputil.HTTPError:
+    properties:
+      code:
+        example: 400
+        type: integer
+      message:
+        example: status bad request
+        type: string
+    type: object
   model.UserModel:
     properties:
       password:
@@ -28,15 +37,6 @@ definitions:
     type: object
   user.CreateResponse:
     properties:
-      username:
-        type: string
-    type: object
-  user.ListRequest:
-    properties:
-      limit:
-        type: integer
-      offset:
-        type: integer
       username:
         type: string
     type: object
@@ -71,19 +71,104 @@ paths:
           schema:
             type: string
       summary: Login generates the authentication token
-  /user:
+      tags:
+      - user
+  /sd/cpu:
+    get:
+      consumes:
+      - application/json
+      description: check cpu health
+      produces:
+      - application/json
+      responses:
+        "200": {}
+        "429":
+          description: '{"Code":429,"Message":"Source busy"}'
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+            type: object
+        "500":
+          description: '{"Code":500,"Message":"Source used up"}'
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+            type: object
+      summary: Check cpu health
+      tags:
+      - sd
+  /sd/disk:
+    get:
+      consumes:
+      - application/json
+      description: check disk health
+      produces:
+      - application/json
+      responses:
+        "200": {}
+        "429":
+          description: '{"Code":429,"Message":"Source busy"}'
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+            type: object
+        "500":
+          description: '{"Code":500,"Message":"Source used up"}'
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+            type: object
+      summary: Check disk health
+      tags:
+      - sd
+  /sd/health:
+    get:
+      consumes:
+      - application/json
+      description: check node health
+      produces:
+      - application/json
+      responses:
+        "200": {}
+      summary: Check node health
+      tags:
+      - sd
+  /sd/ram:
+    get:
+      consumes:
+      - application/json
+      description: check ram health
+      produces:
+      - application/json
+      responses:
+        "200": {}
+        "429":
+          description: '{"Code":429,"Message":"Source busy"}'
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+            type: object
+        "500":
+          description: '{"Code":500,"Message":"Source used up"}'
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+            type: object
+      summary: Check ram health
+      tags:
+      - sd
+  /v1/user:
     get:
       consumes:
       - application/json
       description: List users
       parameters:
-      - description: List users
-        in: body
-        name: user
-        required: true
-        schema:
-          $ref: '#/definitions/user.ListRequest'
-          type: object
+      - description: name search
+        in: query
+        name: username
+        type: string
+      - description: search limit
+        in: query
+        name: limit
+        type: integer
+      - description: serach offset
+        in: query
+        name: offset
+        type: integer
       produces:
       - application/json
       responses:
@@ -114,7 +199,7 @@ paths:
       summary: Add new user to the database
       tags:
       - user
-  /user/{id}:
+  /v1/user/{id}:
     delete:
       consumes:
       - application/json
@@ -164,7 +249,7 @@ paths:
       summary: Update a user info by the user identifier
       tags:
       - user
-  /user/{username}:
+  /v1/user/{username}:
     get:
       consumes:
       - application/json
