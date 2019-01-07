@@ -3,6 +3,7 @@ package sd
 import (
 	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/lexkong/log"
 
@@ -33,6 +34,25 @@ func HealthCheck(c *gin.Context) {
 	log.Info("visit health")
 	message := fmt.Sprintf("the status is %s", "ok")
 	c.JSON(http.StatusOK, message)
+}
+
+//InfoCheck will return vps info
+func InfoCheck(c *gin.Context) {
+	a, _ := load.Avg()
+	u, _ := disk.Usage("/")
+	m, _ := mem.VirtualMemory()
+	cpus, _ := cpu.Percent(time.Second, false)
+	data := make(map[string]interface{})
+	data["l1"] = a.Load1
+	data["l5"] = a.Load5
+	data["l15"] = a.Load15
+	data["busyCPU"] = cpus[0]
+	data["usedDisk"] = float32(u.Used) / MB
+	data["totalDisk"] = float32(u.Total) / MB
+	data["usedMEM"] = float32(m.Used) / MB
+	data["totalMEM"] = float32(m.Total) / MB
+	status := http.StatusOK
+	c.JSON(status, data)
 }
 
 //DiskCheck is to check disk
@@ -68,9 +88,9 @@ func DiskCheck(c *gin.Context) {
 	c.JSON(status, message)
 }
 
-//CPUCheck is to check CPU
+//CPUCheck is to cpu Load
 // @Summary Check cpu health
-// @Description check cpu health
+// @Description check load health
 // @Tags sd
 // @Accept  json
 // @Produce  json
@@ -79,8 +99,33 @@ func DiskCheck(c *gin.Context) {
 // @Failure 500 {object} httputil.HTTPError "{"Code":500,"Message":"Source used up"}"
 // @Router /sd/cpu [get]
 func CPUCheck(c *gin.Context) {
-	log.Info("visit cpu")
-	test, _ := cpu.Counts(true)
+	cpus, _ := cpu.Percent(time.Second, false)
+	cores, _ := cpu.Counts(false)
+	status := http.StatusOK
+	text := "ok"
+	if cpus[0] >= 0.9 {
+		status = http.StatusInternalServerError
+		text = "CRITICAL"
+	} else if cpus[0] >= 0.8 {
+		status = http.StatusTooManyRequests
+		text = "WARNING"
+	}
+	message := fmt.Sprintf("%s - CPU busy in one second: %.2f| Cores: %d", text, cpus[0], cores)
+	c.JSON(status, message)
+}
+
+//LoadCheck is to check Load
+// @Summary Check load health
+// @Description check load health
+// @Tags sd
+// @Accept  json
+// @Produce  json
+// @Success 200
+// @Failure 429 {object} httputil.HTTPError "{"Code":429,"Message":"Source busy"}"
+// @Failure 500 {object} httputil.HTTPError "{"Code":500,"Message":"Source used up"}"
+// @Router /sd/load [get]
+func LoadCheck(c *gin.Context) {
+	log.Info("visit load")
 	cores, _ := cpu.Counts(false)
 	a, _ := load.Avg()
 	l1 := a.Load1
@@ -96,7 +141,7 @@ func CPUCheck(c *gin.Context) {
 		status = http.StatusTooManyRequests
 		text = "WARNING"
 	}
-	message := fmt.Sprintf("%s - Load average: %.2f, %.2f, %.2f ,test:%d| Cores: %d", text, l1, l5, l15, cores, test)
+	message := fmt.Sprintf("%s - Load average: %.2f, %.2f, %.2f ,| Cores: %d", text, l1, l5, l15, cores)
 	c.JSON(status, message)
 
 }
