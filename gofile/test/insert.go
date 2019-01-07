@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 
+    "errors"
 	"./day"
 	"./sort"
 	"./stackArr"
@@ -17,6 +18,9 @@ var name string
 func init() {
 	flag.StringVar(&name, "name", "every", "the greeting object.")
 	// flag.String()
+}
+func main(){
+ testInOperate()
 }
 func Maini() {
 	flag.Usage = func() {
@@ -46,6 +50,29 @@ func Ints() {
 	}
 	fmt.Printf("the sorted list of int is %v\n", a)
 
+}
+
+type operate func(x,y int) int
+
+type calcFunc func(x,y int)(int,error)
+
+func genCalc(op operate)calcFunc{
+    return func(x,y int)(int,error){
+        if op==nil{
+            return 0, errors.New("invalid operation")
+        }
+        return op(x,y),nil
+    }
+}
+
+func testInOperate(){
+    f:= genCalc(func(x,y int)int{return x*y})
+    v,err:= f(1,2)
+    if err!=nil{
+    fmt.Println("functions missing")
+     return
+    }
+     fmt.Println(v)
 }
 
 type T typeString.T

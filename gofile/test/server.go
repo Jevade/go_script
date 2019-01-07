@@ -295,7 +295,7 @@ func main3() {
 
 	}
 }
-func main() {
+func main44() {
 	main3()
 	web.Server()
 	main2()
