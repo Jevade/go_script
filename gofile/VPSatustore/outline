@@ -1,0 +1,37 @@
+
+VPS
+    ID
+    name
+    ip
+    hostname
+    network
+    image
+    createdat
+    updatedat
+    deletedat
+    disk
+    cpu
+    ram
+    cpu
+    vpstype: docker kvm
+user
+    ID
+    username
+    password
+    vps_limit
+    level
+    department
+    office
+    email
+    cellphone
+    is_on
+    is_admin
+
+own
+    vps_id
+    user_id
+    is_on
+    is_private
+
+
+

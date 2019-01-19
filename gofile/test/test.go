@@ -66,7 +66,7 @@ func pingServer() error {
 	}
 	return errors.New("Cannot connect to the router.")
 }
-func main() {
+func mainy() {
 	ch := make(chan int)
 	fmt.Println("123")
 	err1 := pingServer()
