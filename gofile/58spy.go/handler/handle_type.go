@@ -23,8 +23,8 @@ func SearchType(task *Task) {
 	}()
 }
 
-func ProcessType() {
+func ProcessType(url string) {
 	log.Info("Begin search type")
-	task := &Task{URL: "https://bj.58.com/sale.shtml"}
+	task := &Task{URL: url}
 	SearchType(task)
 }

@@ -52,6 +52,7 @@ func main() {
 	}
 	model.DB.Init()
 	// itemspy.GetItemInfo("https://bj.58.com/shouji/pn06/", make(chan interface{}, 4))
-	// handler.ProcessType()
+	handler.ProcessType("bj")
+	handler.ProcessType("sh")
 	handler.Process()
 }

@@ -9,8 +9,9 @@ import (
 )
 
 //GetChannelUrls is to get channel info
-func GetChannelUrls(url string, typech chan<- interface{}) {
-	baseHost := "https://bj.58.com"
+func GetChannelUrls(turl string, typech chan<- interface{}) {
+	url := "https://" + turl + ".58.com/sale.shtml"
+	baseHost := "https://" + turl + ".58.com"
 	js, err := goquery.NewDocument(url)
 	if err != nil {
 		log.Fatal(err)

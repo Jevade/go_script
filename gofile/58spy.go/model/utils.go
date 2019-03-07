@@ -22,18 +22,18 @@ func (u *ItemInfo) Update() error {
 }
 
 //GetItem will return userinfo by username
-func GetItem(itemID string) (*ItemInfo, error) {
+func GetItem(itemID string) (*ItemInfo, bool, error) {
 	u := &ItemInfo{}
 	d := DB.Self.Where("item_id=?", itemID).First(&u)
-	return u, d.Error
+	return u, d.RecordNotFound(), d.Error
 }
 
 //Create is to Create item from db
 func (u *TypeInfo) Create() error {
-	if _, err := GetType(u.Typename); err == nil {
-		return nil
+	if GetType(u.Typename, u.URL) {
+		return DB.Self.Create(&u).Error
 	}
-	return DB.Self.Create(&u).Error
+	return nil
 }
 
 //DeleteType is to delete item from db
@@ -53,10 +53,9 @@ func (u *TypeInfo) Update() error {
 }
 
 //GetType will return TypeInfo by username
-func GetType(typename string) (*TypeInfo, error) {
+func GetType(typename, url string) bool {
 	u := &TypeInfo{}
-	d := DB.Self.Where("typename=?", typename).First(&u)
-	return u, d.Error
+	return DB.Self.Where("typename=?", typename).Where("url=?", url).First(&u).RecordNotFound()
 }
 
 //GetAllType will return TypeInfo by username
