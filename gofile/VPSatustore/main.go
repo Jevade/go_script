@@ -25,7 +25,7 @@ func DbConn(MyUser, Password, Host, Db string, Port int) *gorm.DB {
 }
 
 func init() {
-	db = DbConn("root","123456","10.90.226.189","vps_information",3306)
+	db = DbConn("root","123456","10.90.226.243","vps_information",3306)
 	if !db.HasTable(&VPS{}) {
 		if err := db.Set("gorm:table_options", "ENGINE=InnoDB DEFAULT CHARSET=utf8").CreateTable(&VPS{}).Error; err != nil {
 			panic(err)
@@ -85,10 +85,10 @@ func main() {
 	if err := recover(); err != nil {
 		fmt.Println(err)
 	}
-	ip := "127.0.0.1"
+	ip :=[4]string{ "127.0.0.1","10.90.226.97","10.90.226.189","10.90.226.243"}
 	for i := 0; ; i++ {
 		time.Sleep(time.Second)
-		GetVPSInfo(uint64(i), ip)
+		GetVPSInfo(uint64(i%len(ip)), ip[i%len(ip)])
 	}
 }
 
@@ -97,6 +97,7 @@ func GetVPSInfo(vpsID uint64, ip string) {
 	resp, err := http.Get("http://" + ip + ":6669/sd/info")
 	if err != nil {
 		fmt.Println(err)
+        return
 	}
 	data, _ := ioutil.ReadAll(resp.Body)
 	var in map[string]interface{}

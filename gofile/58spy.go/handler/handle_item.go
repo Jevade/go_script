@@ -18,7 +18,7 @@ func SearchItem(task *Task) {
 	for i := 0; i < 10; i++ {
 		go SaveItem(itemch)
 	}
-	for i := task.Pose + 1; i < int(task.Limit); i += task.Step {
+	for i := task.Pose; i < int(task.Limit); i += task.Step {
 		time.Sleep(500 * time.Millisecond)
 		url := fmt.Sprintf("%spn%02d/", task.URL, i)
 		fmt.Println("The url is:", url)
@@ -65,7 +65,7 @@ func Process() {
 		task.URL = elem.URL
 		task.Step = 1
 		task.Pose = 1
-		task.Limit = 50
+		task.Limit = 5
 		taskch <- task
 		time.Sleep(60 * time.Second)
 	}
