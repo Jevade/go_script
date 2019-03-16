@@ -49,17 +49,34 @@ func SaveItem(itemch chan interface{}) {
 
 //Process is to run search item tasks
 func Process() {
-	typeInfo, err := model.GetAllType()
-	if err != nil {
-		return
-	}
+
 	taskch := make(chan interface{}, 200)
 	defer close(taskch)
 	go ProcessTask(taskch)
 	go ProcessTask(taskch)
 	go ProcessTask(taskch)
 	go ProcessTask(taskch)
+	for {
+		SendTask(taskch)
+		time.Sleep(3600 * time.Second)
+	}
+	// <-done
+}
+
+//ProcessTask is to process task
+func ProcessTask(taskch <-chan interface{}) {
+	for task := range taskch {
+		SearchItem(task.(*Task))
+	}
+}
+
+//SendTask will send task to chan
+func SendTask(taskch chan interface{}) {
+	typeInfo, err := model.GetAllType()
 	for _, elem := range *typeInfo {
+		if err != nil {
+			return
+		}
 		fmt.Println("Send task")
 		task := &Task{}
 		task.URL = elem.URL
@@ -68,13 +85,5 @@ func Process() {
 		task.Limit = 5
 		taskch <- task
 		time.Sleep(60 * time.Second)
-	}
-	<-done
-}
-
-//ProcessTask is to process task
-func ProcessTask(taskch <-chan interface{}) {
-	for task := range taskch {
-		SearchItem(task.(*Task))
 	}
 }

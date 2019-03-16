@@ -48,6 +48,14 @@ type TypeInfo struct {
 	Typename string `json:"typename"`
 	URL      string `json:"url"`
 	Tasknum  uint64 `json:"tasknum"`
-	Amount   uint64 `json:"Amount"`
+	Amount   uint64 `json:"amount"`
 	IsCoped  bool   `json:"isCoped"`
+}
+
+//CityInfo is to return cityinfo
+type CityInfo struct {
+	Citykey  uint64 `json:"citykey"`
+	BaseHost string `json:"basehost"`
+	CityName string `json:"cityname"`
+	Province string `json:"Province"`
 }
