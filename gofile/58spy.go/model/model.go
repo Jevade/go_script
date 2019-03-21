@@ -1,6 +1,7 @@
 package model
 
 import (
+	"fmt"
 	"sync"
 	"time"
 )
@@ -54,8 +55,17 @@ type TypeInfo struct {
 
 //CityInfo is to return cityinfo
 type CityInfo struct {
-	Citykey  uint64 `json:"citykey"`
+	ID       uint64 `json:"id"`
+	Cityname string `json:"cityname"`
 	BaseHost string `json:"basehost"`
-	CityName string `json:"cityname"`
-	Province string `json:"Province"`
+	Shortcut string `json:"shortcut"`
+	Province string `json:"province"`
+}
+
+func (ci *CityInfo) String() {
+	fmt.Println("ID:", ci.ID)
+	fmt.Println("Cityname:", ci.Cityname)
+	fmt.Println("BaseHost:", ci.BaseHost)
+	fmt.Println("Shortcut:", ci.Shortcut)
+	fmt.Println("Province:", ci.Province)
 }

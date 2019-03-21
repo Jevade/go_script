@@ -32,6 +32,7 @@ type Task struct {
 	Step  int    `json:"step"`
 	Pose  int    `json:"pose"`
 	Limit int    `json:"limit"`
+	Type  string `json:"type"`
 }
 
 func SaveItem(itemch chan interface{}) {
