@@ -11,7 +11,7 @@ import (
 func SearchType(task *Task) {
 	typech := make(chan interface{}, 4)
 	i := 0
-	go itemspy.GetChannelUrls(task.URL, typech)
+	go itemspy.GetChannelUrls(task.Shortcut, typech)
 	func() {
 		i++
 		for elem := range typech {
@@ -23,8 +23,14 @@ func SearchType(task *Task) {
 	}()
 }
 
-func ProcessType(url string) {
-	log.Info("Begin search type")
-	task := &Task{URL: url}
-	SearchType(task)
+func ProcessType() {
+	cityInfos, err := model.GetAllCity()
+	for _, cityInfo := range *cityInfos {
+		if err != nil {
+			return
+		}
+		log.Info("Begin search type")
+		task := &Task{Shortcut: cityInfo.Shortcut}
+		SearchType(task)
+	}
 }

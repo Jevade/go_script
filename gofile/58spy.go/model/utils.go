@@ -52,6 +52,20 @@ func (u *TypeInfo) Update() error {
 	// return DB.Self.Save(u).Error
 }
 
+//Create is to Create CityInfo item from db
+func (u *CityInfo) Create() error {
+	if GetCity(u.Cityname, u.Shortcut) {
+		return DB.Self.Create(&u).Error
+	}
+	return nil
+}
+
+//GetCity will return TypeInfo by username
+func GetCity(cityname, shortcut string) bool {
+	u := &TypeInfo{}
+	return DB.Self.Where("cityname=?", cityname).Where("shortcut=?", shortcut).First(&u).RecordNotFound()
+}
+
 //GetType will return TypeInfo by username
 func GetType(typename, url string) bool {
 	u := &TypeInfo{}
@@ -62,5 +76,12 @@ func GetType(typename, url string) bool {
 func GetAllType() (*[]TypeInfo, error) {
 	u := &[]TypeInfo{}
 	d := DB.Self.Find(u, "is_coped=?", false)
+	return u, d.Error
+}
+
+//GetAllCity will return TypeInfo by username
+func GetAllCity() (*[]CityInfo, error) {
+	u := &[]CityInfo{}
+	d := DB.Self.Find(u)
 	return u, d.Error
 }

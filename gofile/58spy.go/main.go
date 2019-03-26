@@ -52,16 +52,7 @@ func main() {
 	}
 	model.DB.Init()
 	// itemspy.GetItemInfo("https://bj.58.com/shouji/pn06/", make(chan interface{}, 4))
-
-	handler.ProcessType("bj")
-	handler.ProcessType("sh")
-	handler.ProcessType("tj")
-	handler.ProcessType("wh")
-	handler.ProcessType("gj")
-	handler.ProcessType("sz")
-	handler.ProcessType("cd")
-	handler.ProcessType("zz")
-	handler.ProcessType("hz")
-	handler.ProcessType("nj")
+	// handler.SendTaskCity("https://www.58.com/changecity.html")
+	// handler.ProcessType()
 	handler.Process()
 }

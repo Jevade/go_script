@@ -1,8 +1,10 @@
 package itemspy
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
+	"strings"
 
 	"../model"
 	"github.com/PuerkitoBio/goquery"
@@ -29,19 +31,40 @@ func GetCityUrls(url string, itemch chan<- interface{}) {
 	doc, err := goquery.NewDocumentFromReader(res.Body)
 	if err != nil {
 		log.Fatal("Document read error:", err)
+
+	}
+	fmt.Println(res.Body)
+	log.Info("Document read success")
+	var city map[string](map[string]string)
+	// Find the review items
+	doc.Find("script").Each(func(j int, proSelection *goquery.Selection) {
+		province := proSelection.Text()
+		strList := strings.Split(province, "=")
+		if len(strList) < 4 {
+			return
+		}
+		fmt.Println("len of script is:", len(strList))
+		if err := json.Unmarshal([]byte(strList[3]), &city); err == nil {
+			fmt.Println(city)
+		} else {
+			fmt.Println(err)
+			return
+		}
+		copeCityJSON(city, itemch)
+	})
+	log.Info("Document read failed")
+}
+
+func copeCityJSON(cities map[string](map[string]string), itemch chan<- interface{}) {
+	for province := range cities {
+		for city := range cities[province] {
+			cityInfo := &model.CityInfo{Province: province, Cityname: city}
+			cityInfo.Shortcut = strings.Split(cities[province][city], "|")[0]
+			cityInfo.BaseHost = "www." + cityInfo.Shortcut + ".58.com"
+			fmt.Println(cityInfo)
+			itemch <- cityInfo
+			log.Info(province)
+		}
 	}
 
-	// Find the review items
-	doc.Find("div.content-province").Each(func(j int, proSelection *goquery.Selection) {
-		province := proSelection.Find("div.content-province-title").Text()
-		proSelection.Find("div.content-cities").Find("a").Each(func(k int, aSelection *goquery.Selection) {
-
-			cityInfo := &model.CityInfo{Province: province}
-
-			cityInfo.Cityname = RemoveSpace(aSelection.Text())
-			cityInfo.BaseHost, _ = aSelection.Attr("href")
-			cityInfo.Shortcut, _ = aSelection.Attr("href")
-			fmt.Println(cityInfo)
-		})
-	})
 }

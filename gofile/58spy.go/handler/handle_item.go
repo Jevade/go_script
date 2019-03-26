@@ -28,11 +28,14 @@ func SearchItem(task *Task) {
 
 //Task is to define search task
 type Task struct {
-	URL   string `json:"url"`
-	Step  int    `json:"step"`
-	Pose  int    `json:"pose"`
-	Limit int    `json:"limit"`
-	Type  string `json:"type"`
+	Shortcut string `json:"shortcut"`
+	Province string `json:"province"`
+	City     string `json:"city"`
+	URL      string `json:"url"`
+	Step     int    `json:"step"`
+	Pose     int    `json:"pose"`
+	Limit    int    `json:"limit"`
+	Type     string `json:"type"`
 }
 
 func SaveItem(itemch chan interface{}) {

@@ -8,9 +8,9 @@ import (
 )
 
 //ProcessTask is to process task
-func ProcessCity(taskch <-chan interface{}) {
+func ProcessCity(taskch chan interface{}) {
 	for task := range taskch {
-		SearchCity(task.(*Task))
+		go SearchCity(task.(*Task))
 	}
 }
 
@@ -27,4 +27,15 @@ func SearchCity(task *Task) {
 			fmt.Println(i)
 		}
 	}()
+}
+
+func SendTaskCity(url string) {
+	fmt.Println(url)
+	task := &Task{URL: url, Type: "city"}
+	taskch := make(chan interface{}, 4)
+	go func() {
+		taskch <- task
+		defer close(taskch)
+	}()
+	ProcessCity(taskch)
 }

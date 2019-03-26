@@ -136,5 +136,13 @@ func createDB(db *gorm.DB) {
 	} else {
 		log.Info("Table ItemInfo has exists")
 	}
+	if !db.HasTable(&CityInfo{}) {
+		if err := db.Set("gorm:table_options", "ENGINE=InnoDB DEFAULT CHARSET=utf8").CreateTable(&CityInfo{}).Error; err != nil {
+			panic(err)
+		}
+		log.Info("Table CityInfo created")
+	} else {
+		log.Info("Table CityInfo has exists")
+	}
 
 }
