@@ -13,12 +13,16 @@ func DeleteItem(itemID string) error {
 }
 
 //Update is to update userinfo in db
-func (u *ItemInfo) Update() error {
-	return DB.Self.Model(&u).Updates(
-		ItemInfo{
-			Price:     u.Price,
-			UpdatedAt: u.UpdatedAt,
-		}).Error
+func (u *ItemInfo) Update(oldu *ItemInfo) error {
+	oldu.Price = u.Price
+	oldu.UpdatedAt = u.UpdatedAt
+	return DB.Self.Save(oldu).Error
+
+	// return DB.Self.Model(&oldu).Updates(
+	// 	ItemInfo{
+	// 		Price:     u.Price,
+	// 		UpdatedAt: u.UpdatedAt,
+	// 	}).Error
 }
 
 //GetItem will return userinfo by username
