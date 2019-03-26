@@ -22,7 +22,7 @@ func SearchItem(task *Task) {
 		time.Sleep(500 * time.Millisecond)
 		url := fmt.Sprintf("%spn%02d/", task.URL, i)
 		fmt.Println("The url is:", url)
-		itemspy.GetItemInfo(url, itemch)
+		itemspy.GetItemInfo(task.Province, task.City, url, itemch)
 	}
 }
 
@@ -38,12 +38,14 @@ type Task struct {
 	Type     string `json:"type"`
 }
 
+//SaveItem is to saveitem
 func SaveItem(itemch chan interface{}) {
 	for item := range itemch {
 		if nil == item {
 			continue
 		}
 		if _, have, _ := model.GetItem(item.(*model.ItemInfo).ItemID); !have {
+			item.(*model.ItemInfo).Update()
 			continue
 		}
 		item.(*model.ItemInfo).Create()
@@ -64,7 +66,6 @@ func Process() {
 		SendTask(taskch)
 		time.Sleep(3600 * time.Second)
 	}
-	// <-done
 }
 
 //ProcessTask is to process task

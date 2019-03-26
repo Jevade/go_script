@@ -16,9 +16,9 @@ func DeleteItem(itemID string) error {
 func (u *ItemInfo) Update() error {
 	return DB.Self.Model(&u).Updates(
 		ItemInfo{
-			Price: u.Price,
+			Price:     u.Price,
+			UpdatedAt: u.UpdatedAt,
 		}).Error
-	// return DB.Self.Save(u).Error
 }
 
 //GetItem will return userinfo by username
