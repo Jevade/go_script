@@ -44,9 +44,9 @@ func SaveItem(itemch chan interface{}) {
 		if nil == item {
 			continue
 		}
-		if olditem, have, _ := model.GetItem(item.(*model.ItemInfo).ItemID); !have {
-			item.(*model.ItemInfo).Update(olditem)
+		if _, have, _ := model.GetItem(item.(*model.ItemInfo).ItemID); !have {
 			continue
+			// item.(*model.ItemInfo).Update(olditem)
 		}
 		item.(*model.ItemInfo).Create()
 		fmt.Println(item.(*model.ItemInfo).Desc)
