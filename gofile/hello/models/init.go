@@ -21,13 +21,16 @@ func init() {
 	//             dbConfig.Name,
 	//             dbConfig.ParseTime,
 	//             dbConfig.Local)
-	DsName := "root:123456@tcp(127.0.0.1:3306)/chat?charset=utf8mb4"
+	fmt.Println(123)
+	DsName := "root:123456@tcp(120.24.190.4:3306)/chat?charset=utf8mb4"
 	err := errors.New("")
 	DbEngin, err = xorm.NewEngine(drivename, DsName)
 	if err != nil {
 		log.Fatal(err)
 	}
 	//是否显示sql
+	// GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY '123456' WITH GRANT OPTION;
+	// update user set host='%' where user='root';
 	DbEngin.ShowSQL(true)
 	//数据库最大连接数
 	DbEngin.SetMaxOpenConns(2)
