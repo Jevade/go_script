@@ -2,6 +2,8 @@ package ctrl
 
 import (
 	"errors"
+	"fmt"
+	"log"
 	"net/http"
 
 	"../models"
@@ -13,13 +15,21 @@ var userService service.UserService
 
 //UserLogin 处理用户登录逻辑
 func UserLogin(w http.ResponseWriter, r *http.Request) {
+	log.Println(" Doing login jobs")
 	r.ParseForm()
 	mobile := r.PostForm.Get("mobile")
-	password := r.PostForm.Get("passwd")
+	password := r.PostForm.Get("password")
+	if !(mobile != "" && password != "") {
+		util.RespFail(w, errors.New("空数据").Error())
+		return
+	}
+	log.Println(1222222, mobile, password)
 	user, err := userService.Login(mobile, password)
 	if err != nil {
 		util.RespFail(w, err.Error())
 	} else {
+		id := fmt.Sprintf("%d", user.Id)
+		w.Header().Set("id", id)
 		data := make(map[string]interface{})
 		data["id"] = user.Id
 		data["token"] = user.Token

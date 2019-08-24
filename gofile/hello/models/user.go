@@ -10,6 +10,7 @@ const (
 	SEX_UNKNOW = "U"
 )
 
+//User
 type User struct {
 	Id       int64  `xorm:"pk autoincr bigint(20)" form:"id" json:"id"`
 	Mobile   string `xorm:"varchar(20)" form:"mobile" json:"mobile"`

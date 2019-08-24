@@ -51,6 +51,7 @@
             login:function(){
                 //检测手机号是否正确
                 console.log("login")
+                console.log(this.user)
                 //检测密码是否为空
 
                 //网络请求
@@ -60,7 +61,10 @@
                     if(res.code!=0){
                         mui.toast(res.msg)
                     }else{
-                        //location.replace("//127.0.0.1/demo/index.shtml")
+                        url = "/chat/index.shtml" + "?id="+res.data.id+ "&token="+  res.data.token
+                        location.replace(url) 
+                        console.log(url)
+
                         mui.toast("登录成功,即将跳转")
                     }
                 })
