@@ -12,6 +12,9 @@
     function userId(){
         return util.parseQuery("id")
     }
+    function theToken(){
+        return util.parseQuery("token")
+        }
     var app=new Vue(
             {
                 el:"#pageapp",
@@ -328,6 +331,13 @@
                             }
                             this.usermap = usermap;
                         }.bind(this))
+                    },
+                    createcom:function(){
+                        url = "createcom.shtml" + "?id="+userId()+ "&token="+  theToken();
+                        location.href=url;
+                        console.log(url);
+                        //location.replace(url) ;
+                        mui.toast("登录成功,即将创建");
                     },
                     loadcommunitys:function(){
                         var that = this;

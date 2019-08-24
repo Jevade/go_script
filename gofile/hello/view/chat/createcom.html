@@ -82,6 +82,9 @@
 </body>
 </html>
 <script>
+    function userId(){
+        return util.parseQuery("id")
+    }
     function uploadthis(dom){
         var data = new FormData();
 
@@ -115,7 +118,7 @@
                         cate:0,
                         memo:"",
                         icon:"/asset/images/community.png",
-                        ownerid:0
+                        ownerid:userId()
                     },
 
                 },
@@ -128,6 +131,9 @@
                             mui.toast("请填写名称")
                             return
                         }
+                        console.log(this.com.ownerid)
+                        this.com.ownerid=userId();
+                        console.log(this.com.ownerid)
                         post("contact/createcommunity",this.com,function(res){
                             if(res.code==0){
                                 mui.toast("创建成功");

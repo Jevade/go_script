@@ -37,30 +37,17 @@ func (s *CommunityService) Add(args *args.ContactArg) (err error) {
 	//开启事务
 	session := models.DbEngin.NewSession()
 	session.Begin()
-	_, e2 := session.InsertOne(&models.Contact{
+	_, err = session.InsertOne(&models.Contact{
 		Ownerid:  userid,
 		Dstobj:   dstid,
 		Cate:     models.CONTACT_CATE_COMMUNITY,
 		Createat: time.Now(),
 	})
-	_, e3 := session.InsertOne(&models.Contact{
-		Ownerid:  dstid,
-		Dstobj:   userid,
-		Cate:     models.CONTACT_CATE_COMMUNITY,
-		Createat: time.Now(),
-	})
-
 	//没有错误
-	if e2 == nil && e3 == nil {
-		session.Commit()
-	} else {
+	if err != nil {
 		session.Rollback()
-		if e2 != nil {
-			err = e2
-		} else {
-			err = e3
-		}
 	}
+	session.Commit()
 	return
 }
 
@@ -85,7 +72,7 @@ func (s *CommunityService) LoadCommunity(args *args.ContactArg) ([]models.Commun
 	return communities, err
 }
 
-//CreateCommunityd is to  添加群
+//CreateCommunity is to  添加群
 func (s *CommunityService) CreateCommunity(
 	name, //群名称
 	memo, //群介绍
