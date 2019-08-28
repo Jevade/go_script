@@ -296,6 +296,7 @@
                         this.webSocket=new WebSocket(url);
                         //消息处理
                         this.webSocket.onmessage = function(evt){
+                            console.log(evt)
                             //{"data":"}",...}
                             if(evt.data.indexOf("}")>-1){
                                 this.onmessage(JSON.parse(evt.data));

@@ -73,3 +73,10 @@ func (s *UserService) Login(
 	models.DbEngin.ID(tmp.Id).Cols("token").Update(&tmp)
 	return tmp, nil
 }
+
+//Find will get user with the selected ID
+func (s *UserService) Find(userId int64) models.User {
+	tmp := models.User{}
+	models.DbEngin.ID(userId).Get(&tmp)
+	return tmp
+}
