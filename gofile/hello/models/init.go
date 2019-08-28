@@ -24,7 +24,7 @@ func init() {
 	//             dbConfig.ParseTime,
 	//             dbConfig.Local)
 	fmt.Println(123)
-	DsName := "root:123456@tcp(192.168.199.132:3306)/chat?charset=utf8mb4"
+	DsName := "root:123456@tcp(192.168.199.167:3306)/chat?charset=utf8mb4"
 	fmt.Println(DsName)
 	err := errors.New("")
 	DbEngin, err = xorm.NewEngine(drivename, DsName)
@@ -43,6 +43,9 @@ func init() {
 		new(Community),
 		new(Contact))
 	errDefine(err)
+	if err != nil {
+		log.Println("init database failed")
+	}
 	log.Println("init database success")
 }
 
