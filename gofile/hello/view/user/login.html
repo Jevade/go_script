@@ -2,13 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
-    <title>IM解决方案登录</title>
-    <link rel="stylesheet" href="/asset/plugins/mui/css/mui.css" />
-    <link rel="stylesheet" href="/asset/css/login.css" />
-    <script src="/asset/plugins/mui/js/mui.js" ></script>
-    <script src="/asset/js/vue.min.js" ></script>
-    <script src="/asset/js/util.js" ></script>
+{{template "/chat/head.shtml"}}
 </head>
 <body>
 
@@ -62,10 +56,13 @@
                         mui.toast(res.msg)
                     }else{
                         url = "/chat/index.shtml" + "?id="+res.data.id+ "&token="+  res.data.token
-                        location.replace(url) 
                         console.log(url)
-
+                        console.log(res.data)
+                        console.log(res.data.id)
+                        userInfo(res.data)
+                        userId(res.data.id)
                         mui.toast("登录成功,即将跳转")
+                        location.replace(url) 
                     }
                 })
             },

@@ -11,7 +11,7 @@ import (
 type ContactService struct {
 }
 
-func (s *ContactService) LoadFriend(args *args.ContactArg) ([]models.User, error) {
+func (s *ContactService) LoadFriend(args *args.ContactArg) ([]map[string]interface{}, error) {
 	userid := args.Userid
 	// session := models.DbEngin.NewSession()
 	contacts := make([]models.Contact, 0)
@@ -24,11 +24,15 @@ func (s *ContactService) LoadFriend(args *args.ContactArg) ([]models.User, error
 		objIds = append(objIds, v.Dstobj)
 	}
 	friends := make([]models.User, 0)
+	result := make([](map[string]interface{}), 0)
 	if 0 == len(objIds) {
-		return friends, err
+		return result, err
 	}
 	models.DbEngin.In("id", objIds).Find(&friends)
-	return friends, err
+	for _, friend := range friends {
+		result = append(result, friend.Json())
+	}
+	return result, err
 }
 
 //Add 添加好友

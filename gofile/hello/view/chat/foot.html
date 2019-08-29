@@ -10,7 +10,7 @@
         })
     }
     function userId(){
-        return util.parseQuery("id")
+        return parseInt(util.parseQuery("id"))
     }
     function theToken(){
         return util.parseQuery("token")
@@ -32,6 +32,7 @@
                     txtmsg:"",
                     panelstat:"kbord",
                     txtstat:"kbord",
+                    txtstat1:"kbord0",
                     title:"",
                     doutu:{
                         config:{
@@ -216,6 +217,8 @@
                         var data={
 
                         }
+                        //console.log(msg)
+                        //console.log(user)
                         data.ismine = userId()==msg.userid;
                         console.log(data.ismine,userId(),msg.userid)
                         data.user = user;
@@ -232,8 +235,17 @@
                     startrecord:function(){
 
                     },
+                    switchtxtstat:function(){
+                        if (this.txtstat1=='kbord1'){
+                            this.txtstat1='kbord0'
+                        }else{
+                            this.txtstat1='kbord1'
+
+                        }
+                    },
                     sendtxtmsg:function(txt){
                         //{id:1,userid:2,dstid:3,cmd:10,media:1,content:"hello"}
+                        console.log("Send"+ txt)
                         var msg =this.createmsgcontext();
                         msg.media=1;
                         msg.content=txt;
@@ -261,7 +273,7 @@
                     singlemsg:function(user){
                         console.log(user)
                         this.win = "single";
-                        this.title = "和"+user.nickname+"聊天中";
+                        this.title = "和"+user.mobile+"聊天中";
                         this.msgcontext.dstid = user.id;
                         this.msgcontext.cmd = 10;
                     },

@@ -33,6 +33,10 @@ func UserLogin(w http.ResponseWriter, r *http.Request) {
 		data := make(map[string]interface{})
 		data["id"] = user.Id
 		data["token"] = user.Token
+		data["mobile"] = user.Mobile
+		data["avatar"] = user.Avatar
+		data["memo"] = user.Memo
+		data["sex"] = user.Sex
 		util.RespOK(w, data)
 	}
 }

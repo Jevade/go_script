@@ -1,6 +1,7 @@
 package ctrl
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
@@ -20,6 +21,60 @@ type Node struct {
 	DataQuery chan []byte //并行转串行
 	GroupSets set.Interface
 }
+
+type Message struct {
+	ID      int64  `json:"id,omitempty" form:"id"`
+	UserID  int64  `json:"userid,omitempty" form:"userid"`
+	Cmd     int    `json:"cmd,omitempty" form:"cmd"`
+	Dstid   int64  `json:"dstid,omitempty" form:"dstid"`
+	Media   int    `json:"medid,omitempty" form:"medid"`
+	Content string `json:"content,omitempty" form:"content"`
+	Pic     string `json:"pic,omitempty" form:"pic"`
+	URL     string `json:"url,omitempty" form:"url"`
+	Memo    string `json:"memo,omitempty" form:"memo"`
+	Amount  int    `json:"amount,omitempty" form:"amount"`
+}
+
+/**
+消息发送结构体
+1、MEDIA_TYPE_TEXT 1
+{id:1,userid:2,dstid:3,cmd:10,media:1,content:"hello"}
+2、MEDIA_TYPE_NEWS 2
+{id:1,userid:2,dstid:3,cmd:10,media:2,content:"标题",pic:"http://www.baidu.com/a/log,jpg",url:"http://www.a,com/dsturl","memo":"这是描述"}
+3、MEDIA_TYPE_VOICE 3，amount单位秒
+{id:1,userid:2,dstid:3,cmd:10,media:3,url:"http://www.a,com/dsturl.mp3",anount:40}
+4、MEDIA_TYPE_IMG 4
+{id:1,userid:2,dstid:3,cmd:10,media:4,url:"http://www.baidu.com/a/log,jpg"}
+5、MEDIA_TYPE_REDPACKAGR 5//红包amount 单位分
+{id:1,userid:2,dstid:3,cmd:10,media:5,url:"http://www.baidu.com/a/b/c/redpackageaddress?id=100000","amount":300,"memo":"恭喜发财"}
+6、MEDIA_TYPE_EMOJ 6
+{id:1,userid:2,dstid:3,cmd:10,media:6,"content":"cry"}
+7、MEDIA_TYPE_LINK 7
+{id:1,userid:2,dstid:3,cmd:10,media:7,"url":"http://www.a,com/dsturl.html"}
+
+8、MEDIA_TYPE_VIDEO 8
+{id:1,userid:2,dstid:3,cmd:10,media:8,pic:"http://www.baidu.com/a/log,jpg",url:"http://www.a,com/a.mp4"}
+
+9、MEDIA_TYPE_CONTACT 9
+{id:1,userid:2,dstid:3,cmd:10,media:9,"content":"10086","pic":"http://www.baidu.com/a/avatar,jpg","memo":"胡大力"}
+
+*/
+var (
+	MEDIA_TYPE_TEXT       = 1
+	MEDIA_TYPE_NEWS       = 2
+	MEDIA_TYPE_VOICE      = 3
+	MEDIA_TYPE_IMG        = 4
+	MEDIA_TYPE_REDPACKAGR = 5
+	MEDIA_TYPE_EMOJ       = 6
+	MEDIA_TYPE_LINK       = 7
+	MEDIA_TYPE_VIDEO      = 8
+	MEDIA_TYPE_CONTACT    = 9
+)
+var (
+	CMD_SINGLE_MSG = 10
+	CMD_ROOM_MSG   = 11
+	CMD_HEART      = 0
+)
 
 var clientMap = make(map[int64]*Node)
 
@@ -71,9 +126,28 @@ func recvproc(node *Node) {
 			log.Println(err.Error())
 			return
 		}
+
+		dispatch(data)
 		fmt.Printf("recv<-%s", data)
 	}
 
+}
+func dispatch(data []byte) {
+	msg := Message{}
+	err := json.Unmarshal(data, &msg)
+	if err != nil {
+		log.Println(err.Error())
+		return
+	}
+	switch msg.Cmd {
+	case CMD_SINGLE_MSG:
+		sendMsg(msg.Dstid, data)
+	case CMD_ROOM_MSG:
+		//
+	case CMD_HEART:
+		//
+
+	}
 }
 
 func sendMsg(userID int64, msg []byte) {

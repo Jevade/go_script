@@ -1,6 +1,7 @@
 package models
 
 import (
+	"log"
 	"time"
 )
 
@@ -24,4 +25,17 @@ type User struct {
 	Memo     string `xorm:"varchar(140)" form:"memo" json:"memo"`
 	//Memo
 	Createat time.Time `xorm:"datetime"  form:"createat" json:"createat"`
+}
+
+func (u *User) Json() map[string]interface{} {
+	log.Println("Json being loading ...........")
+	result := make(map[string]interface{}, 0)
+	result["id"] = u.Id
+	result["mobile"] = u.Mobile
+	result["avatar"] = u.Avatar
+	result["sex"] = u.Sex
+	result["nickname"] = u.Nickname
+	result["online"] = u.Online
+	result["memod"] = u.Memo
+	return result
 }

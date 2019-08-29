@@ -71,6 +71,7 @@ func (s *UserService) Login(
 	token := util.MD5Encode(str)
 	tmp.Token = token
 	models.DbEngin.ID(tmp.Id).Cols("token").Update(&tmp)
+	fmt.Println(tmp)
 	return tmp, nil
 }
 
