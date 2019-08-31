@@ -1,3 +1,6 @@
+*.jpg
+*.png
+*.exe
 *log
 *out
 nohup.out
