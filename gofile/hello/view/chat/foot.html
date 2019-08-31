@@ -145,6 +145,8 @@
                             return ;
                         }
                         this.duration = new Date().getTime();
+//navigator.mediaDevices.getUserMedia({audio: true, video: false})
+  //                              .then(successfunc).catch(errfunc)
                         navigator.mediaDevices.getUserMedia({audio: true, video: false})
                                 .then((stream) => {
                                     this.recorder = new MediaRecorder(stream);
@@ -154,7 +156,7 @@
                                         console.log("ondataavailable",event);
                                         uploadblob("attach/upload",event.data,res=>{
                                             var duration = Math.ceil((new Date().getTime()-this.duration)/1000);
-                                            this.sendaudiomsg(res.data,duration);
+                                            this.sendaudiomsg(res.data.url,duration);
                                             console.log("attach/upload",res.data)
                                         })
                                     }
