@@ -27,7 +27,7 @@ type User struct {
 	Createat time.Time `xorm:"datetime"  form:"createat" json:"createat"`
 }
 
-func (u *User) Json() map[string]interface{} {
+func (u *User) JSON() map[string]interface{} {
 	log.Println("Json being loading ...........")
 	result := make(map[string]interface{}, 0)
 	result["id"] = u.Id

@@ -3,8 +3,10 @@
 
     function upload(dom){
         uploadfile("attach/upload",dom,function(res){
-            if(res.code==200){
-                app.sendpicmsg(res.data)
+                console.log(res)
+            if(res.code==0){ 
+                console.log(res)
+                app.sendpicmsg(res.data.url)
             }
 
         })

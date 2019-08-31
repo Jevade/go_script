@@ -5,8 +5,11 @@ import (
 	"fmt"
 	"log"
 
+	//mysql
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/go-xorm/xorm"
+
+	//presgres
 	_ "github.com/lib/pq"
 )
 

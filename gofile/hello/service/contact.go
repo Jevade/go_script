@@ -30,7 +30,7 @@ func (s *ContactService) LoadFriend(args *args.ContactArg) ([]map[string]interfa
 	}
 	models.DbEngin.In("id", objIds).Find(&friends)
 	for _, friend := range friends {
-		result = append(result, friend.Json())
+		result = append(result, friend.JSON())
 	}
 	return result, err
 }

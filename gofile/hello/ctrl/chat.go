@@ -143,9 +143,9 @@ func dispatch(data []byte) {
 	case CMD_SINGLE_MSG:
 		sendMsg(msg.Dstid, data)
 	case CMD_ROOM_MSG:
-		//
+		//群发逻辑
 	case CMD_HEART:
-		//
+		//心跳信息接受
 
 	}
 }
