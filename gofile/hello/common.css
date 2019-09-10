@@ -14,7 +14,34 @@
             list-style-type: none;
         }
         
-        a {
-            color: greenyellow;
+        a[target="_blank"] {
+            color: rgb(202, 178, 71);
             text-decoration: none;
+        }
+        
+        #id_index {
+            font: 1em sans-serif;
+        }
+        
+        #id_worktable {
+            border: 2px solid steelblue
+        }
+        
+        .outline.abc {
+            background-color: yellow;
+        }
+        
+        .outline {
+            color: red;
+            font-weight: bold;
+            font-style: italic;
+            text-decoration: underline;
+        }
+        
+        input[disabled] {
+            cursor: not-allowed;
+        }
+        
+        a[href^="#"] {
+            color: rgb(185, 53, 141);
         }
