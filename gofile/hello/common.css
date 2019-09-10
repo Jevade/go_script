@@ -1,0 +1,20 @@
+        body {
+            width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        table {
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        ul,
+        ol {
+            list-style-type: none;
+        }
+        
+        a {
+            color: greenyellow;
+            text-decoration: none;
+        }
