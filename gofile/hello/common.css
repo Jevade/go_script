@@ -2,6 +2,9 @@
             width: 1000px;
             margin: 0 auto;
             text-align: center;
+            font: SimSon;
+            font-style: italic;
+            font: 18px "Microsoft YaHei"
         }
         
         table {
@@ -42,6 +45,20 @@
             cursor: not-allowed;
         }
         
+        p[class^=outline] {
+            text-align: left;
+            vertical-align: -10px;
+        }
+        
         a[href^="#"] {
             color: rgb(185, 53, 141);
+            background-color: yellowgreen;
+        }
+        
+        img#img {
+            vertical-align: baseline;
+        }
+        
+        ol#edu_info~li {
+            color: red;
         }
