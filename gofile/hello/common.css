@@ -1,20 +1,108 @@
-        body {
-            width: 1000px;
-            margin: 0 auto;
-            text-align: center;
-        }
-        
-        table {
-            margin: 0 auto;
-            text-align: center;
-        }
-        
-        ul,
-        ol {
-            list-style-type: none;
-        }
-        
-        a {
-            color: greenyellow;
-            text-decoration: none;
-        }
+                        body {
+                            width: 1000px;
+                            margin: 0 auto;
+                            text-align: center;
+                            font-size: 18px;
+                        }
+                        
+                        table {
+                            margin: 0 auto;
+                            text-align: center;
+                        }
+                        
+                        ul,
+                        ol {
+                            list-style-type: none;
+                        }
+                        
+                        *[class="school"] {
+                            color: greenyellow;
+                            background-color: brown;
+                        }
+                        
+                        ol#id_expe>li {
+                            margin-top: 20px;
+                        }
+                        
+                        [class="info"] {
+                            background-color: gray;
+                        }
+                        
+                        .info {
+                            color: blueviolet;
+                            background-color: green;
+                        }
+                        /* 
+                        ol#id_expe>* li {
+                            background-color: red;
+                        }
+                        */
+                        
+                        ul>li {
+                            display: inline-block;
+                        }
+                        
+                        ol#id_expe>li:nth-child(2n-1) {
+                            width: 300px;
+                            margin: 0 auto;
+                            background-color: green;
+                        }
+                        
+                        ol#id_expe>li:nth-child(2n) {
+                            width: 300px;
+                            margin: 0 auto;
+                            background-color: red;
+                        }
+                        
+                        a:visited {
+                            color: aquamarine;
+                        }
+                        
+                        a:hover {
+                            background-color: blue;
+                            color: white;
+                        }
+                        
+                        p>span {
+                            font-size: 20px;
+                            font-style: italic;
+                            font-weight: bold;
+                        }
+                        
+                        p {
+                            margin: 0 auto;
+                            width: 50vw;
+                            text-align: center;
+                        }
+                        
+                        p::first-letter {
+                            font-size: 20px;
+                            font: green;
+                            color: blueviolet;
+                            font-weight: bold;
+                        }
+                        
+                        h3::before {
+                            content: "--";
+                            color: red;
+                        }
+                        
+                        h3::after {
+                            content: "**"
+                        }
+                        
+                        p::first-line {
+                            font-weight: bold;
+                        }
+                        
+                        p {
+                            background-color: bisque;
+                        }
+                        
+                        p a {
+                            display: inline-block;
+                            width: 100px;
+                            height: 200px;
+                            color: white;
+                            background: blue;
+                        }
