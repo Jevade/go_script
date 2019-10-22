@@ -22,6 +22,7 @@ func (s *UserService) Register(
 	avatar, sex string) (user models.User, err error) {
 	//if mobile exists
 	tmp := models.User{}
+	fmt.Println(models.DbEngin.Ping())
 	_, err = models.DbEngin.Where("mobile=?", mobile).Get(&tmp)
 	if err != nil {
 		return tmp, err
@@ -56,6 +57,7 @@ func (s *UserService) Login(
 	mobile,
 	plainpwd string) (user models.User, err error) {
 	tmp := models.User{}
+	fmt.Println(tmp, mobile)
 	_, err = models.DbEngin.Where("mobile=?", mobile).Get(&tmp)
 	if err != nil {
 		return tmp, err
