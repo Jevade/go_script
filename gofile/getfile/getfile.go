@@ -11,7 +11,6 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/qianlnk/pgbar"
 	uuid "github.com/satori/go.uuid"
 )
 
@@ -55,24 +54,35 @@ func main() {
 	if len(os.Args) != 0 {
 		fmt.Println(os.Args[0])
 	}
+    if os.Args[1]=="-h"{
+        fmt.Println("Usage:")
+        fmt.Println("1:      ./getfile  SrcPath ToPath fileID")
+        fmt.Println("2:      SrcPath ToPath should be realpath like '/pa/pa' or './p1'")
+        fmt.Println("3:      PWD should have dataInjection fold")
+        fmt.Println("4:      fileID should be like a20191107 and not pure numeric string")
+        fmt.Println("5:      Enjoy!")
+        return
+    }
 	filepath := "/Volumes/SanDisk/数据管理"
 	if len(os.Args) > 1 {
 		filepath = os.Args[1]
 	}
-	topath := "./datainjection"
+	topath := "/home/ubuntu/zdyf/dataInjection/nos"
 	if len(os.Args) > 2 {
 		topath = os.Args[2]
 	}
 
+	fileID := "a20191107"
+	if len(os.Args) > 3 {
+		fileID = os.Args[3]
+	}
+
 	//fmt.Println("查找文件夹是:", filepath)
 	s := make(chan string, 10)
-	pgbar.Println("进度条1") //遍历打印所有的flag.Parse()文件名
-	b4 := pgbar.NewBar(0, "1st", 1000)
 
 	Len := 3
 	var wg sync.WaitGroup
 	wg.Add(1)
-	b4.Add()
 	go func() {
 		defer wg.Done()
 		ii := 0
@@ -84,10 +94,9 @@ func main() {
 			if fi == "done" {
 				return
 			}
-			info, _ := AnalysePath(fi, topath, Len)
+			info, _ := AnalysePath(fi, topath,fileID, Len)
 			MakeDirs(info)
 			MakeFile(info)
-			//b4.Add()
 		}
 	}()
 	err := GetAllFile(filepath, s)
@@ -97,7 +106,7 @@ func main() {
 	wg.Wait()
 }
 
-func AnalysePath(spath, topath string, pathDepth int) (map[string]interface{}, error) {
+func AnalysePath(spath, topath,fileID string, pathDepth int) (map[string]interface{}, error) {
 	info := make(map[string]interface{})
 	pathsli := strings.Split(spath, "/")[pathDepth:]
 	Len := len(pathsli)
@@ -111,6 +120,7 @@ func AnalysePath(spath, topath string, pathDepth int) (map[string]interface{}, e
 		k := fmt.Sprintf("%d级目录", i)
 		info[k] = v
 	}
+	info["fileID"] = fileID
 	info["ext"] = ext
 	info["filepath"] = spath
 	info["filename"] = pathsli[Len-1]

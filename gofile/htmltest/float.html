@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <link type="text/css" rel="stylesheet" href="common.css">
+    <style type="text/css">
+        #p1 {
+            height: 500px;
+            width: 100px;
+            background-color: red;
+            float: left;
+        }
+        
+        #p2 {
+            width: 500px;
+            height: 100px;
+            background-color: green;
+            float: right;
+        }
+        
+        #empty {}
+        
+        .classfix::after {
+            content: ".";
+            clear: both;
+            display: block;
+            visibility: hidden;
+            height: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="div1" class="classfix">
+
+        <p id="p1">1</p>
+        <p id="p2">2</p>
+    </div>
+    <div>
+        <p id="p3">2222222</p>
+    </div>
+
+</body>
+
+</html>

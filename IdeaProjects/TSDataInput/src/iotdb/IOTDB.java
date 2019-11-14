@@ -63,7 +63,18 @@ public class IOTDB {
             while(line != null){
                 System.out.println(line);
                 count++;
-                execute(line);
+                try{
+
+                    execute(line);
+                }catch (SQLException e){
+
+                   System.out.println(e.getMessage());
+                    System.out.println("SQL语句失败");
+                }
+                finally {
+
+                    System.out.println("Have executed "+ Integer.toString(count)+" lines");
+                }
                 line = bReader.readLine();
             }
             System.out.println(count);
