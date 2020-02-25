@@ -72,7 +72,7 @@ func main() {
 		topath = os.Args[2]
 	}
 
-	fileID := "a20191107"
+	fileID := "a20191025"
 	if len(os.Args) > 3 {
 		fileID = os.Args[3]
 	}
@@ -108,9 +108,12 @@ func main() {
 
 func AnalysePath(spath, topath,fileID string, pathDepth int) (map[string]interface{}, error) {
 	info := make(map[string]interface{})
-	pathsli := strings.Split(spath, "/")[pathDepth:]
+    fmt.Println(spath)
+    fmt.Println(pathDepth)
+	pathsli := strings.Split(spath, "/")
+    fmt.Println(pathsli)
 	Len := len(pathsli)
-	u1, _ := uuid.NewV4()
+	u1 := uuid.NewV4()
 	exts := strings.Split(spath, ".")
 	ext := ""
 	if len(exts) > 1 {
