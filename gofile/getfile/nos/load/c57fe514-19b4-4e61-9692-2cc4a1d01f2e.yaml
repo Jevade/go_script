@@ -1,0 +1,41 @@
+runmode            : debug
+name               : 58spy
+url                : http://127.0.0.1:6669
+max_ping_count     : 10
+gorm_max_conns     : 0
+gormlog            : true
+jwt_secret         : hiqwejkanjheqwejwqmesajewqe
+log:
+  writers          : file,stdout
+  logger_level     : DEBUG 
+  logger_file      : log/58spy.log
+  log_format_text  : false
+  rollingPolicy    : size
+  log_rotate_date  : 1
+  log_rotate_size  : 1024
+  log_backup_count : 7
+db:
+  type             : mysql
+  name             : 58spy
+  host             : 120.24.190.4
+  port             : 3306
+  user             : root
+  passwd           : 123456
+  parseTime        : true
+  local            : Local
+  createDB         : true
+docker_db:
+  type             : mysql
+  name             : db_58spy
+  host             : 10.90.226.243
+  port             : 3306
+  user             : root
+  passwd           : 123456
+  parseTime        : true
+  local            : Remote
+
+tls:
+  addr             : 8081
+  cert             : "conf/server.crt"
+  key              : "conf/server.key" 
+  url              : http://127.0.0.1:8081

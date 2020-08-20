@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/jevade/hello"
+	"github.com/jevade/hello/util"
 	"net/http"
 	"database/sql"
 	"fmt"
@@ -25,38 +25,13 @@ func checkErr(err error) {
 	}
 }
 func main(){
-	http.HandleFunc("/user/login", MSdataFunc)
+	http.HandleFunc("/data", MSdataFunc)
+    fmt.Println("start listen")
 	http.ListenAndServe(":8787", nil)
-}
-//UserLogin 处理用户登录逻辑
-func UserLogin(w http.ResponseWriter, r *http.Request) {
-	log.Println(" Doing login jobs")
-	r.ParseForm()
-	mobile := r.PostForm.Get("mobile")
-	password := r.PostForm.Get("password")
-	if !(mobile != "" && password != "") {
-		util.RespFail(w, errors.New("空数据").Error())
-		return
-	}
-	log.Println(1222222, mobile, password)
-	user, err := userService.Login(mobile, password)
-	if err != nil {
-		util.RespFail(w, err.Error())
-	} else {
-		id := fmt.Sprintf("%d", user.Id)
-		w.Header().Set("id", id)
-		data := make(map[string]interface{})
-		data["id"] = user.Id
-		data["token"] = user.Token
-		data["mobile"] = user.Mobile
-		data["avatar"] = user.Avatar
-		data["memo"] = user.Memo
-		data["sex"] = user.Sex
-		util.RespOK(w, data)
-	}
 }
 
 func MSdataFunc(w http.ResponseWriter, r *http.Request) {
+    fmt.Println("get listen")
 	connStr := "user=hailan dbname=hailan port=5432 host=127.0.0.1 sslmode=disable"
 	db, err := sql.Open("postgres", connStr)
 	if err != nil {
@@ -65,7 +40,7 @@ func MSdataFunc(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	//查询数据
-	rows, err := db.Query("SELECT id,sourcename FROM sourcecollectinfos where type='NS'")
+	rows, err := db.Query("SELECT id,sourcename,type,c1,c2 FROM sourcecollectinfos where type='NS'")
 	checkErr(err)
 
 	data := make(map[string][]interface{})
@@ -81,6 +56,6 @@ func MSdataFunc(w http.ResponseWriter, r *http.Request) {
 		data["c2"]=append(data["c2"],sourceCollection.c2)
 	}
 
-	hello.util.RespOK(w, data)
+	util.RespOK(w, data)
 }
 
