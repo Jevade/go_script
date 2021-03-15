@@ -323,7 +323,7 @@ func main44() {
 	myVCard.adress.street = "YCBYJ"
 	myVCard.adress.code = "102201"
 	myVCard.age = 25
-	myVCard.corpation = "COMAC"
+	myVCard.corpation = "Tik"
 	myVCard.name = "Jevade"
 	myVCard.telNum = "13112345678"
 	print(&myVCard)
